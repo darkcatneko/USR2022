@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using Cinemachine;
 
 public class GenAndCtrl : MonoBehaviour
 {
-    [SerializeField] GameObject LvStartPoint;
+    [SerializeField] GameObject LvStartPoint, GameCanvas, FastTapCanvas;
     [SerializeField] GameObject[] PrefabLvObjs = new GameObject[4];
     [SerializeField] GameObject[] LastEnemys = new GameObject[3];
     [SerializeField] Button ClearBtn, ForwardBtn;
