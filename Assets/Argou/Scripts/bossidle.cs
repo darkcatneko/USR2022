@@ -16,7 +16,7 @@ public class bossidle : bossactionclass
         StartCoroutine(move());
     }
 
-    IEnumerator move()
+    protected override IEnumerator move()
     {
         print("idle");
         float duration = idletime;
@@ -31,7 +31,7 @@ public class bossidle : bossactionclass
             yield return null;
         }
 
-        yield return new WaitForFixedUpdate();
+        
         skillfinish();
 
        

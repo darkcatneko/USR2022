@@ -8,11 +8,12 @@ public abstract class bossactionclass: MonoBehaviour
 {
     //把controller設定為Parent
     public bossactcontroller Parent;
-    
+    public GameObject hand;
     //所有action載入(開始)時都會呼叫一次
     protected virtual void Start()
     {
         //把controller設定為Parent
+        hand = GameObject.FindGameObjectWithTag("hand");
         Parent = GetComponent<bossactcontroller>();
 
 
@@ -21,7 +22,7 @@ public abstract class bossactionclass: MonoBehaviour
 
     //所有action都要有的function
     protected abstract void action();
-
+    protected abstract IEnumerator move();
 
 
     public virtual void skillfinish()
@@ -34,4 +35,15 @@ public abstract class bossactionclass: MonoBehaviour
         //叫Controller去下一個動作
         Parent.nextmove();
     }
+
+
+    public virtual void stopattack()
+    {
+        StopCoroutine(move());
+        Destroy(this);
+
+
+    }
+    
+
 }

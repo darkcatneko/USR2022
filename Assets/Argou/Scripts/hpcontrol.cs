@@ -6,8 +6,8 @@ using UnityEngine.Events;
 //¦å¶q±±¨î
 public class hpcontrol : MonoBehaviour
 {
-    [SerializeField] int maxHP;
-    [SerializeField] int nowHP;
+    [SerializeField] private int maxHP;
+    [SerializeField] protected int nowHP;
     [SerializeField] CanvasGroup hpbar;
     
 

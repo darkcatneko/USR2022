@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class bossactcontroller : MonoBehaviour
 {
     [SerializeField] bossactionclass bossaction;
 
-    // 0= 待機 , 1=攻擊 2=暈,3=後退
-    [SerializeField] int bossstage = 0;
-    [SerializeField] UnityEvent damagetoplayer;
+    // 0= 待機 , 1=攻擊 2=後退,3=暈
+    [SerializeField] private int bossstage = 0;
+    [SerializeField] private int nextbossstage = 2;
+    [SerializeField] private UnityEvent damagetoplayer;
     
+
+
 
 
 
@@ -21,42 +25,71 @@ public class bossactcontroller : MonoBehaviour
     }
 
 
-//第一個動作
+    //第一個動作
     private void Start()
     {
         bossaction = gameObject.AddComponent<bossidle>();
     }
 
-//下一個動作(AI的部份)
+    //下一個動作(AI的部份)(目前是待機>攻擊>暈眩>待機>...)
     public void nextmove()
     {
-       
-      if(bossstage==0)
+        if (nextbossstage == 0)
         {
-            bossaction = gameObject.AddComponent<bossstop>();
-            bossstage = 2;
-           
-        }
-
-        //if (bossstage == 1)
-        //{
-        //    bossaction = gameObject.AddComponent<>();
-        //    bossstage = 2;
-
-        //}
-
-        else if(bossstage == 2)
-        {
-            //哹叫上給予傷害的function,之後要移動到攻擊裏面
-            givedamagetoplayer();
 
 
+
+            bossstage = nextbossstage;
+            nextbossstage = 1;
             bossaction = gameObject.AddComponent<bossidle>();
-            bossstage = 0;
+
         }
+        else if (nextbossstage == 1)
+        {
+
+
+            bossstage = nextbossstage;
+            nextbossstage = 2;
+            bossaction = gameObject.AddComponent<bosstestattack>();
+
+        }
+
+        else if (nextbossstage == 2)
+        {
+            bossstage = nextbossstage;
+            nextbossstage = 0;
+
+            bossaction = gameObject.AddComponent<bosstebackward>();
+
+        }
+
+        else if(nextbossstage == 3)
+        {
+            bossstage = nextbossstage;
+            nextbossstage = 2;
+
+            bossaction = gameObject.AddComponent<bossstop>();
+
+        }
+        
+
+
+        
     }
 
-   
+    //被反擊暈眩後
+    public void stunned()
+    {
+        if (bossstage == 1)
+        {
+            bossaction.stopattack();
+            nextbossstage = 3;
+            nextmove();
+        }
+        
+    }
+
+
 
 
 }
