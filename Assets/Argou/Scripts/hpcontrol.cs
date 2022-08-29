@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
 //血量控制
 public class hpcontrol : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class hpcontrol : MonoBehaviour
         nowHP = maxHP;
     }
 
+    //可以給其他UnityEvent呼叫
     public void getdamage(int x)
     {
         nowHP -= x;
