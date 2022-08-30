@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class bossactcontroller : MonoBehaviour
+public class BossActController : MonoBehaviour
 {
-    [SerializeField] bossactionclass bossaction;
+    [SerializeField] BossActionClass bossAction;
 
     // 0= 待機 , 1=攻擊 2=後退,3=暈
-    [SerializeField] private int bossstage = 0;
-    [SerializeField] private int nextbossstage = 2;
-    [SerializeField] bool Taphintsshow;
-    [SerializeField] CanvasGroup taphints;
-
+    [SerializeField] private int bossStage = 0;
+    [SerializeField] private int nextBossStage = 1;
+    [SerializeField] bool tapHintsShow;
+    [SerializeField] CanvasGroup tapHints;
+    [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damagetoplayer;
-    
+
 
 
 
@@ -32,79 +32,76 @@ public class bossactcontroller : MonoBehaviour
     //第一個動作
     private void Start()
     {
-        bossaction = gameObject.AddComponent<bossidle>();
+        bossAction = gameObject.AddComponent<BossIdle>();
+        
     }
 
     //下一個動作(AI的部份)(目前是待機>攻擊>暈眩>待機>...)
     public void nextmove()
     {
-        if (nextbossstage == 0)
+        if (nextBossStage == 0)
         {
-
-
-
-            bossstage = nextbossstage;
-            nextbossstage = 1;
-            bossaction = gameObject.AddComponent<bossidle>();
+            bossStage = nextBossStage;
+            nextBossStage = 1;
+            bossAction = gameObject.AddComponent<BossIdle>();
 
         }
-        else if (nextbossstage == 1)
+        else if (nextBossStage == 1)
         {
-
-
-            bossstage = nextbossstage;
-            nextbossstage = 2;
-            bossaction = gameObject.AddComponent<bosstestattack>();
+            bossStage = nextBossStage;
+            nextBossStage = 2;
+            bossAction = gameObject.AddComponent<BossTestAttack>();
 
         }
 
-        else if (nextbossstage == 2)
+        else if (nextBossStage == 2)
         {
-            bossstage = nextbossstage;
-            nextbossstage = 0;
+            bossStage = nextBossStage;
+            nextBossStage = 0;
 
-            bossaction = gameObject.AddComponent<bosstebackward>();
+            bossAction = gameObject.AddComponent<BossTestBackward>();
 
         }
 
-        else if(nextbossstage == 3)
+        else if (nextBossStage == 3)
         {
-            bossstage = nextbossstage;
-            nextbossstage = 2;
+            bossStage = nextBossStage;
+            nextBossStage = 2;
 
-            bossaction = gameObject.AddComponent<bossstop>();
+            bossAction = gameObject.AddComponent<BossStop>();
 
         }
-        
 
 
-        
+
+
     }
 
     //被反擊暈眩後
     public void stunned()
     {
-        if (bossstage == 1)
+        if (bossStage == 1)
         {
             taphint(0);
-            bossaction.stopattack();
-            nextbossstage = 3;
+            bossAction.stopattack();
+            nextBossStage = 3;
             nextmove();
+            hpControl.getdamage(1);
         }
-        
+
     }
 
 
     public void taphint(int x)
     {
 
-    if (Taphintsshow)
+        if (tapHintsShow)
         {
-            taphints.alpha = x;   
+            tapHints.alpha = x;
         }
 
     }
 
-    
+
 
 }

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bosstebackward :  bossactionclass
+public class BossTestBackward : BossActionClass
 {
 
 
     
-    float backtime = 1;
-    [SerializeField] hpcontrol hpcontrol;
+    float backTime = 1;
+    
 
     protected override void action()
     {
@@ -20,7 +20,7 @@ public class bosstebackward :  bossactionclass
     {
         print("back");
         
-        float duration = backtime;
+        float duration = backTime;
         float time = 0f;
         Vector3 orgpos = transform.position;
 
@@ -32,7 +32,7 @@ public class bosstebackward :  bossactionclass
             yield return null;
         }
 
-        Parent.givedamagetoplayer();
+        
         skillfinish();
 
 

@@ -1,29 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 //血量控制
-public class hpcontrol : MonoBehaviour
+public class HpControl : MonoBehaviour
 {
-    [SerializeField] private int maxHP;
-    [SerializeField] protected int nowHP;
-    [SerializeField] CanvasGroup hpbar;
+    [SerializeField] public int maxHp ;
+    [SerializeField] public int nowHp ;
     
 
 
     private void Start()
     {
-        nowHP = maxHP;
+        nowHp = maxHp;
+        
     }
 
     //可以給其他UnityEvent呼叫
     public void getdamage(int x)
     {
-        nowHP -= x;
+        nowHp -= x;
+        
     }
 
-    
-
    
+
+
 }

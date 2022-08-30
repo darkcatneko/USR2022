@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class bossstop : bossactionclass
+public class BossStop : BossActionClass
 {
 
     
-    float movetime = 1f;
-    float idletime = 2;
-    [SerializeField] hpcontrol hpcontrol;
+    float moveTime = 1f;
+    float idleTime = 2;
+   
     
     protected override void action()
     {
@@ -20,13 +20,13 @@ public class bossstop : bossactionclass
     protected override IEnumerator move()
     {
         print("stop");
-        float duration = idletime;
+        float duration = idleTime;
         float time = 0f;
 
         //計時+動作(如無動作,可用yield return new WaitForSeconds代替)
         while (time < duration)
         {
-            transform.eulerAngles = new Vector3(0, 360*time/movetime, 0);
+            transform.eulerAngles = new Vector3(0, 360*time/moveTime, 0);
             time += Time.deltaTime;
             yield return null;
             

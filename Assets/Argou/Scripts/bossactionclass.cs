@@ -4,19 +4,21 @@ using UnityEngine;
 
 
 //所有boss動作的共用class
-public abstract class bossactionclass: MonoBehaviour
+public abstract class BossActionClass: MonoBehaviour
 {
     //把controller設定為Parent
-    public bossactcontroller Parent;
+    public BossActController parent;
     public GameObject hand;
+
     //所有action載入(開始)時都會呼叫一次
     protected virtual void Start()
     {
+
         //把controller設定為Parent
-        hand = GameObject.FindGameObjectWithTag("hand");
-        Parent = GetComponent<bossactcontroller>();
+        
+        parent = GetComponent<BossActController>();
 
-
+        hand = GameObject.Find("hand");
         action();
     }
 
@@ -33,7 +35,7 @@ public abstract class bossactionclass: MonoBehaviour
 
 
         //叫Controller去下一個動作
-        Parent.nextmove();
+        parent.nextmove();
     }
 
 

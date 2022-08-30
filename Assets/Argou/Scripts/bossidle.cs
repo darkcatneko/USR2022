@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bossidle : bossactionclass
+public class BossIdle : BossActionClass
 {
 
     float movedistance = 0.2f;
