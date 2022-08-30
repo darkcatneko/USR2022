@@ -11,8 +11,12 @@ public class bossactcontroller : MonoBehaviour
     // 0= 待機 , 1=攻擊 2=後退,3=暈
     [SerializeField] private int bossstage = 0;
     [SerializeField] private int nextbossstage = 2;
+    [SerializeField] bool Taphintsshow;
+    [SerializeField] CanvasGroup taphints;
+
     [SerializeField] private UnityEvent damagetoplayer;
     
+
 
 
 
@@ -82,6 +86,7 @@ public class bossactcontroller : MonoBehaviour
     {
         if (bossstage == 1)
         {
+            taphint(0);
             bossaction.stopattack();
             nextbossstage = 3;
             nextmove();
@@ -90,6 +95,16 @@ public class bossactcontroller : MonoBehaviour
     }
 
 
+    public void taphint(int x)
+    {
 
+    if (Taphintsshow)
+        {
+            taphints.alpha = x;   
+        }
+
+    }
+
+    
 
 }
