@@ -6,7 +6,6 @@ public class _BossTestAttack : _BossActionClass
 {
     float moveTime = 2f;
     float attackTime = 2;
-    [SerializeField] _HpControl hpControl;
 
 
     protected override void Action()

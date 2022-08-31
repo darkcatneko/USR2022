@@ -13,7 +13,7 @@ public class _BossActController : MonoBehaviour
     [SerializeField] private int nextBossStage = 2;
     [SerializeField] bool tapHintsShow;
     [SerializeField] CanvasGroup tapHints;
-
+    [SerializeField] private _HpControl hpControl;
     [SerializeField] private UnityEvent damageToPlayer;
     
 
@@ -71,6 +71,7 @@ public class _BossActController : MonoBehaviour
             bossAction.StopAttack();
             nextBossStage = 3;
             NextMove();
+            hpControl.GetDamage(1);
         }
         
     }

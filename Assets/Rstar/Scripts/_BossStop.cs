@@ -7,7 +7,6 @@ public class _BossStop : _BossActionClass
 {
     float moveTime = 1f;
     float idleTime = 2;
-    [SerializeField] _HpControl hpControl;
 
     protected override void Action()
     {

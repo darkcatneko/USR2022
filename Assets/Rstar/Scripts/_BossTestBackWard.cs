@@ -5,7 +5,7 @@ using UnityEngine;
 public class _BossTestBackWard : _BossActionClass
 {
     float backTime = 1;
-    [SerializeField] _HpControl hpControl;
+
 
     protected override void Action()
     {
@@ -28,7 +28,7 @@ public class _BossTestBackWard : _BossActionClass
             yield return null;
         }
 
-        parent.GiveDamageToPlayer();
+
         SkillFinish();
 
 
