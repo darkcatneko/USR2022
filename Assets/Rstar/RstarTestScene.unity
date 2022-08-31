@@ -560,8 +560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossAction: {fileID: 0}
-  bossStage: 0
-  nextBossStage: 0
+  bossStage: 3
+  nextBossStage: 4
   tapHintsShow: 1
   tapHints: {fileID: 558624436}
   hpControl: {fileID: 409683467}
@@ -2623,8 +2623,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1256661112}
         m_TargetAssemblyTypeName: _PlayerActController, Assembly-CSharp
-        m_MethodName: DefenceUp
-        m_Mode: 1
+        m_MethodName: OnFire
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2727,6 +2727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAction: {fileID: 0}
+  bossAct: {fileID: 409683466}
   hpControl: {fileID: 1256661110}
   damageToBoss:
     m_PersistentCalls:

@@ -26,11 +26,6 @@ public abstract class _PlayerActionClass : MonoBehaviour
     {
         //把這個script從obj上刪掉
         Destroy(this);
-
-
-
-        //叫Controller去下一個動作
-        //parent.NextMove();    放到controller和玩家點擊
     }
 
     public virtual void StopAttack()

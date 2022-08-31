@@ -9,7 +9,7 @@ public class _BossActController : MonoBehaviour
     [SerializeField] _BossActionClass bossAction;
 
     // 0= 待機 , 1=攻擊 2=後退,3=暈
-    [SerializeField] private int bossStage = 0;
+    [SerializeField] public int bossStage = 0;
     [SerializeField] private int nextBossStage = 2;
     [SerializeField] bool tapHintsShow;
     [SerializeField] CanvasGroup tapHints;
@@ -58,6 +58,11 @@ public class _BossActController : MonoBehaviour
         {
             bossStage = nextBossStage;
             nextBossStage = 2;
+            bossAction = gameObject.AddComponent<_BossStop>();
+        }
+        else if (nextBossStage == 4)//測試攻擊
+        {
+            bossStage = nextBossStage;
             bossAction = gameObject.AddComponent<_BossStop>();
         }
     }
