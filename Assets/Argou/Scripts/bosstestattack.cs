@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BossTestAttack : BossActionClass
 {
 
 
-    float moveTime = 2f;
-    float attackTime = 2;
+    float moveTime = 0.5f;
+    float attackTime = 0.5f;
     
 
     protected override void action()
@@ -18,34 +19,33 @@ public class BossTestAttack : BossActionClass
 
     protected override IEnumerator move()
     {
+        parent.animator.SetInteger("bossStage", 1);
         print("attack");
+
+       
         
-        float duration = attackTime;
-        float time = 0f;
-        Vector3 handorgpos = hand.transform.localPosition;
-        Vector3 orgpos = transform.position;
+        handRender.material.color = new Color(255, 255, 0);
 
-        //計時+動作(如無動作,可用yield return new WaitForSeconds代替)
-        while (time < 0.5f)
-        {
-            transform.position = Vector3.Lerp(orgpos, new Vector3(orgpos.x, orgpos.y, -3f),time/0.5f);  
-            time += Time.deltaTime;
-            yield return null;
-        }
+      
 
+        yield return new WaitForSeconds(moveTime);
+
+        handRender.material.color = new Color(255, 0, 0);
         parent.taphint(1);
 
-        //計時+動作(如無動作,可用yield return new WaitForSeconds代替)
-        while (time < duration)
-        {
-            hand.transform.localPosition = handorgpos + new Vector3(0,0, -Mathf.Abs(Mathf.Sin(360f * (time-0.5f) / (moveTime-0.5f) * Mathf.Deg2Rad)*0.5f));
-            time += Time.deltaTime;
-            yield return null;
-        }
-        parent.taphint(0);
+
+        yield return new WaitForSeconds(attackTime);
+
 
         parent.givedamagetoplayer();
-        skillfinish();
+
+        
+
+
+        parent.taphint(0);
+        handRender.material.color = Color.gray;
+
+        Destroy(this);
 
 
     }

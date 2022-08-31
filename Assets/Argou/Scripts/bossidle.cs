@@ -5,8 +5,6 @@ using UnityEngine;
 public class BossIdle : BossActionClass
 {
 
-    float movedistance = 0.2f;
-    float movetime = 0.5f;
     float idletime = 2;
 
    
@@ -18,19 +16,9 @@ public class BossIdle : BossActionClass
 
     protected override IEnumerator move()
     {
+        parent.animator.SetInteger("bossStage", 0);
         print("idle");
-        float duration = idletime;
-        float time = 0f;
-        Vector3 orgpos = transform.position;
-
-        //計時+動作(如無動作,可用yield return new WaitForSeconds代替)
-        while (time < duration)
-        {
-            transform.position = orgpos + new Vector3(Mathf.Sin(360f * time / movetime * Mathf.Deg2Rad)* movedistance, 0, 0);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
+        yield return new WaitForSeconds(idletime);
         
         skillfinish();
 

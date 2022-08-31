@@ -8,7 +8,7 @@ public class BossStop : BossActionClass
 
     
     float moveTime = 1f;
-    float idleTime = 2;
+    
    
     
     protected override void action()
@@ -19,19 +19,13 @@ public class BossStop : BossActionClass
 
     protected override IEnumerator move()
     {
+        parent.animator.SetInteger("bossStage", 3);
+        handRender.material.color = Color.gray;
         print("stop");
-        float duration = idleTime;
-        float time = 0f;
-
-        //計時+動作(如無動作,可用yield return new WaitForSeconds代替)
-        while (time < duration)
-        {
-            transform.eulerAngles = new Vector3(0, 360*time/moveTime, 0);
-            time += Time.deltaTime;
-            yield return null;
-            
-        }
         
+
+        yield return new WaitForSeconds(parent.canAttacktime);
+        parent.isStunned = false;
         skillfinish();
 
        

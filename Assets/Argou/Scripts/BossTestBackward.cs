@@ -7,7 +7,7 @@ public class BossTestBackward : BossActionClass
 
 
     
-    float backTime = 1;
+    float backTime = 0.5f;
     
 
     protected override void action()
@@ -18,19 +18,11 @@ public class BossTestBackward : BossActionClass
 
     protected override IEnumerator move()
     {
-        print("back");
+        parent.animator.SetInteger("bossStage", 2);
         
-        float duration = backTime;
-        float time = 0f;
-        Vector3 orgpos = transform.position;
+        print("back");
 
-        //計時+動作(如無動作,可用yield return new WaitForSeconds代替)
-        while (time < 1f)
-        {
-            transform.position = Vector3.Lerp(orgpos, new Vector3(orgpos.x, orgpos.y, 0), time / 1f);
-            time += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(backTime);
 
         
         skillfinish();

@@ -5,8 +5,8 @@ using UnityEngine;
 public class A_BossIdle : A_BossActionClass
 {
 
-    float movedistance = 0.2f;
-    float movetime = 0.5f;
+    
+   
     float idletime = 2;
 
    
