@@ -683,7 +683,8 @@ GameObject:
   - component: {fileID: 934389247}
   - component: {fileID: 934389251}
   - component: {fileID: 934389250}
-  - component: {fileID: 934389252}
+  - component: {fileID: 934389254}
+  - component: {fileID: 934389253}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -749,14 +750,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934389246}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 938134752}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1028863430}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &934389250
 MonoBehaviour:
@@ -833,7 +834,7 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
---- !u!114 &934389252
+--- !u!114 &934389253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -842,23 +843,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 934389246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e6286b38381e44698adb8e0c468b83, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bb10152e5adf844c89686a1bf4f789e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LvStartPoint: {fileID: 1364689362}
-  GameCanvas: {fileID: 1690534434}
-  FastTapCanvas: {fileID: 641426189}
-  PrefabLvObjs:
-  - {fileID: 4684310200064482438, guid: 9a3db73dd873e284cbe566b935674f71, type: 3}
-  - {fileID: 2186731566575810312, guid: 1f34068e11e20b14e8514754446f8117, type: 3}
-  - {fileID: 451294741899764699, guid: 6d4192271264ce441a61986ef7c82d89, type: 3}
-  - {fileID: 8177608348941702398, guid: 9ba4c8715bfb2c143a44ccbb87ece1d2, type: 3}
-  LastEnemys:
-  - {fileID: 755297914}
-  - {fileID: 1558546774}
-  - {fileID: 1513521447}
-  ClearBtn: {fileID: 1655965316}
-  ForwardBtn: {fileID: 1720982327}
+  CamAnimator: {fileID: 934389254}
+  Is_Walking: 0
+--- !u!95 &934389254
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934389246}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d7e93139b2b7bca4196f02b9c5eb4b02, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &938134751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,6 +1015,66 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f34068e11e20b14e8514754446f8117, type: 3}
+--- !u!1 &1028863429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028863430}
+  - component: {fileID: 1028863431}
+  m_Layer: 0
+  m_Name: PlayerRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1028863430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028863429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 934389249}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1028863431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028863429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e6286b38381e44698adb8e0c468b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LvStartPoint: {fileID: 1364689362}
+  GameCanvas: {fileID: 1690534434}
+  FastTapCanvas: {fileID: 641426189}
+  ClearBtn: {fileID: 1655965316}
+  ForwardBtn: {fileID: 1720982327}
+  CameraAnimCtrler: {fileID: 934389253}
+  PrefabLvObjs:
+  - {fileID: 4684310200064482438, guid: 9a3db73dd873e284cbe566b935674f71, type: 3}
+  - {fileID: 2186731566575810312, guid: 1f34068e11e20b14e8514754446f8117, type: 3}
+  - {fileID: 451294741899764699, guid: 6d4192271264ce441a61986ef7c82d89, type: 3}
+  - {fileID: 8177608348941702398, guid: 9ba4c8715bfb2c143a44ccbb87ece1d2, type: 3}
+  LastEnemys:
+  - {fileID: 755297914}
+  - {fileID: 1558546774}
+  - {fileID: 1513521447}
 --- !u!1 &1163342898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,7 +1839,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 934389252}
+      - m_Target: {fileID: 1028863431}
         m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
         m_MethodName: ClearBtn_Click
         m_Mode: 1
@@ -2006,7 +2075,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 934389252}
+      - m_Target: {fileID: 1028863431}
         m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
         m_MethodName: ForwardBtn_Click
         m_Mode: 1

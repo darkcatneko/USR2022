@@ -8,9 +8,10 @@ using Cinemachine;
 public class GenAndCtrl : MonoBehaviour
 {
     [SerializeField] GameObject LvStartPoint, GameCanvas, FastTapCanvas;
+    [SerializeField] Button ClearBtn, ForwardBtn;
+    [SerializeField] CameraAnimationController CameraAnimCtrler;
     [SerializeField] GameObject[] PrefabLvObjs = new GameObject[4];
     [SerializeField] GameObject[] LastEnemys = new GameObject[3];
-    [SerializeField] Button ClearBtn, ForwardBtn;
 
     GameObject[] LvObjs = new GameObject[11];
     Vector3 GapVector = new Vector3(0, 0, 3);
@@ -64,7 +65,7 @@ public class GenAndCtrl : MonoBehaviour
 
     public void ForwardBtn_Click()
     {
-        if (!LvObjs[LvProgress].activeSelf || LvObjs[LvProgress].tag == "NoneObj")
+        if (!LvObjs[LvProgress].activeSelf || LvObjs[LvProgress].tag != "Enemy")
         {
             StartCoroutine("Move");
         }
@@ -72,6 +73,7 @@ public class GenAndCtrl : MonoBehaviour
 
     IEnumerator Move()
     {
+        CameraAnimCtrler.Is_Walking = true;
         LvProgress++;
         ClearBtn.interactable = false;
         ForwardBtn.interactable = false;
@@ -84,6 +86,7 @@ public class GenAndCtrl : MonoBehaviour
                                                                MoveSpeed * Time.deltaTime));
             yield return null;
         }
+        CameraAnimCtrler.Is_Walking = false;
         if (LvProgress == LvObjs.Length - 1)
         {
             GameCanvas.SetActive(false);
