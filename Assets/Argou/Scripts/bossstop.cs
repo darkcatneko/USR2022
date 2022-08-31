@@ -7,7 +7,7 @@ public class BossStop : BossActionClass
 {
 
     
-    float moveTime = 1f;
+    
     
    
     

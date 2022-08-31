@@ -7,7 +7,7 @@ public class PlayerActController : MonoBehaviour
 {
     [SerializeField] _PlayerActionClass playerAction;
 
-    [SerializeField] private _HpControl hpControl;
+    [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damageToBoss;
     [SerializeField] public Animator playerHandsAnimator;
     [SerializeField] private BossActController bossActController;

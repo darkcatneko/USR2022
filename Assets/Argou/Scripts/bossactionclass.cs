@@ -8,22 +8,17 @@ public abstract class BossActionClass: MonoBehaviour
 {
     //把controller設定為Parent
     public BossActController parent;
-    public GameObject hand;
     public Renderer handRender;
-    
-
 
     //所有action載入(開始)時都會呼叫一次
     protected virtual void Start()
     {
 
         //把controller設定為Parent
+        
         parent = GetComponent<BossActController>();
 
-        transform.eulerAngles = new Vector3(0, 0, 0);
-        hand = GameObject.Find("hand");
-        handRender = hand.GetComponent<Renderer>();
-        
+        handRender = GameObject.Find("hand").GetComponent<Renderer>();
         action();
     }
 
@@ -37,7 +32,6 @@ public abstract class BossActionClass: MonoBehaviour
         //把這個script從obj上刪掉
         Destroy(this);
 
-        print("nextaction");
 
 
         //叫Controller去下一個動作

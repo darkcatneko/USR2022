@@ -756,9 +756,9 @@ GameObject:
   - component: {fileID: 409683463}
   - component: {fileID: 409683462}
   - component: {fileID: 409683461}
-  - component: {fileID: 409683465}
   - component: {fileID: 409683466}
   - component: {fileID: 409683467}
+  - component: {fileID: 409683468}
   m_Layer: 0
   m_Name: boss
   m_TagString: Untagged
@@ -848,57 +848,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.119}
---- !u!114 &409683465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409683460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d7aa5bf4a974c40ba4c150cb3fe1bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossAction: {fileID: 0}
-  animator: {fileID: 409683467}
-  bossStage: 0
-  nextBossStage: 1
-  tapHintsShow: 1
-  tapHints: {fileID: 558624436}
-  hpControl: {fileID: 409683466}
-  damageToPlayer:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1256661108}
-        m_TargetAssemblyTypeName: HpControl, Assembly-CSharp
-        m_MethodName: getdamage
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  playerActController: {fileID: 1256661110}
-  blockTimes_1: 1
-  maxGetdamage_1: 25
-  canAttacktime_1: 5
-  hpTostage2: 50
-  blockTimes_2: 2
-  maxGetdamage_2: 10
-  canAttacktime_2: 5
-  hpTostage3: 20
-  blockTimes_3: 4
-  maxGetdamage_3: 10
-  canAttacktime_3: 3
-  isStunned: 0
-  getteddamage: 0
-  maxGetdamag: 0
-  blockTimesBeforeStun: 0
-  canAttacktime: 0
 --- !u!114 &409683466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,6 +882,57 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &409683468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409683460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d7aa5bf4a974c40ba4c150cb3fe1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossAction: {fileID: 0}
+  animator: {fileID: 409683467}
+  bossStage: 0
+  nextBossStage: 1
+  tapHintsShow: 0
+  tapHints: {fileID: 558624436}
+  hpControl: {fileID: 409683466}
+  damageToPlayer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1256661108}
+        m_TargetAssemblyTypeName: HpControl, Assembly-CSharp
+        m_MethodName: getdamage
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  playerActController: {fileID: 1256661110}
+  blockTimes_1: 1
+  maxGetdamage_1: 25
+  canAttacktime_1: 5
+  hpTostage2: 50
+  blockTimes_2: 2
+  maxGetdamage_2: 10
+  canAttacktime_2: 5
+  hpTostage3: 20
+  blockTimes_3: 4
+  maxGetdamage_3: 10
+  canAttacktime_3: 3
+  isStunned: 0
+  getteddamage: 0
+  maxGetdamag: 0
+  blockTimesBeforeStun: 0
+  canAttacktime: 0
 --- !u!1 &413071768
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,7 +2767,6 @@ GameObject:
   - component: {fileID: 1256661108}
   - component: {fileID: 1256661109}
   - component: {fileID: 1256661110}
-  - component: {fileID: 1256661111}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -2976,7 +2975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAction: {fileID: 0}
-  hpControl: {fileID: 1256661111}
+  hpControl: {fileID: 1256661108}
   damageToBoss:
     m_PersistentCalls:
       m_Calls:
@@ -2992,7 +2991,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 409683465}
+      - m_Target: {fileID: 409683468}
         m_TargetAssemblyTypeName: BossActController, Assembly-CSharp
         m_MethodName: getDamageCount
         m_Mode: 3
@@ -3005,22 +3004,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   playerHandsAnimator: {fileID: 0}
-  bossActController: {fileID: 409683465}
+  bossActController: {fileID: 409683468}
   isDefenceing: 0
---- !u!114 &1256661111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256661103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d4cbd149f1c78c4abf820c7c540c730, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 0
-  nowHp: 0
 --- !u!1 &1281170965
 GameObject:
   m_ObjectHideFlags: 0
