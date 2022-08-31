@@ -41,18 +41,15 @@ public class GenAndCtrl : MonoBehaviour
         {
             case "Enemy":
                 LvObjs[LvProgress].SetActive(false);
-                StartCoroutine("Move");
                 break;
             case "Box1":
                 LvObjs[LvProgress].SetActive(false);
-                StartCoroutine("Move");
                 break;
             case "Box2":
                 if (CanOpenBox2)
                 {
                     CanOpenBox2 = false;
                     LvObjs[LvProgress].SetActive(false);
-                    StartCoroutine("Move");
                 }
                 else
                 {
@@ -67,11 +64,7 @@ public class GenAndCtrl : MonoBehaviour
 
     public void ForwardBtn_Click()
     {
-        if (LvObjs[LvProgress].tag == "Enemy")
-        {
-
-        }
-        else
+        if (!LvObjs[LvProgress].activeSelf || LvObjs[LvProgress].tag == "NoneObj")
         {
             StartCoroutine("Move");
         }
