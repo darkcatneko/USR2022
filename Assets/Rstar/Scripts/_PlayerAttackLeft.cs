@@ -11,7 +11,10 @@ public class _PlayerAttackLeft : _PlayerActionClass
 
     protected override IEnumerator Move()
     {
-        print("attackLeft");
+        if (parent.showDebug)
+        {
+            print("attackLeft");
+        }
 
         parent.playerHandsAnimator.SetTrigger("attackLeftTrigger");
 

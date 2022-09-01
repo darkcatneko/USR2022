@@ -13,7 +13,10 @@ public class _PlayerDefenceDown : _PlayerActionClass
 
     protected override IEnumerator Move()
     {
-        print("down");
+        if (parent.showDebug)
+        {
+            print("down");
+        }
 
         float duration = downTime;
 

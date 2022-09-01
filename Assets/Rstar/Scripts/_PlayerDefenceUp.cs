@@ -13,7 +13,10 @@ public class _PlayerDefenceUp : _PlayerActionClass
 
     protected override IEnumerator Move()
     {
-        print("defence");
+        if (parent.showDebug)
+        {
+            print("up");
+        }
 
         float duration = defenceTime;
 

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class _BossTestBackWard : _BossActionClass
 {
-    float backTime = 1;
-
+    float backTime = .5f;
 
     protected override void Action()
     {
@@ -14,24 +13,12 @@ public class _BossTestBackWard : _BossActionClass
 
     protected override IEnumerator Move()
     {
+        parent.animator.SetInteger("bossStage", 2);
         print("back");
-        
-        float duration = backTime;
-        float time = 0f;
-        Vector3 orgPos = transform.position;
 
-        //計時+動作(如無動作,可用yield return new WaitForSeconds代替)
-        while (time < 1f)
-        {
-            transform.position = Vector3.Lerp(orgPos, new Vector3(orgPos.x, orgPos.y, 0), time / 1f);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
+        yield return new WaitForSeconds(backTime);
 
         SkillFinish();
-
-
     }
 }
 

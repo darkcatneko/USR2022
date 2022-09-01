@@ -16,6 +16,8 @@ public class _PlayerActController : MonoBehaviour
     public bool isDefenceing;
     bool isLeftOraOra;
 
+    public bool showDebug = false;
+
     //給予傷害(透過UnityEvent去使用玩家obj上的傷害funtion)
     public void GiveDamageToBoss()
     {
@@ -31,6 +33,10 @@ public class _PlayerActController : MonoBehaviour
     }
     public void DefenceDown()
     {
+        if (TryGetComponent<_PlayerDefenceUp>(out var _playerDefenceUp)) 
+        {
+            _playerDefenceUp.SkillFinish();
+        }
         playerAction = gameObject.AddComponent<_PlayerDefenceDown>();
     }
     public void Attack()
@@ -58,6 +64,7 @@ public class _PlayerActController : MonoBehaviour
             }
             else if (bossAct.bossStage == 3 || bossAct.bossStage == 4/*測試攻擊*/)
             {
+                GiveDamageToBoss();
                 Attack();
             }
         }

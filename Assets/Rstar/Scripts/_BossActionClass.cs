@@ -8,12 +8,13 @@ public abstract class _BossActionClass : MonoBehaviour
 {
     //把controller設定為parent
     public _BossActController parent;
-    public GameObject hand;
+    public Renderer handRender;
+
     //所有Action載入(開始)時都會呼叫一次
     protected virtual void Start()
     {
         //把controller設定為parent
-        hand = GameObject.FindGameObjectWithTag("hand");
+        handRender = GameObject.Find("hand").GetComponent<Renderer>();
         parent = GetComponent<_BossActController>();
 
 
@@ -37,7 +38,7 @@ public abstract class _BossActionClass : MonoBehaviour
     }
 
 
-    public virtual void StopAttack()
+    public virtual void Stop()
     {
         StopCoroutine(Move());
         Destroy(this);
