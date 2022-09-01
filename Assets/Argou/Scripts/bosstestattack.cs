@@ -19,34 +19,27 @@ public class BossTestAttack : BossActionClass
 
     protected override IEnumerator move()
     {
+        parent.TapHint(0, "");
         parent.animator.SetInteger("bossStage", 1);
         print("attack");
 
-       
-        
-        handRender.material.color = new Color(255, 255, 0);
-
-      
+        //handRender.material.color = new Color(255, 255, 0);
 
         yield return new WaitForSeconds(moveTime);
 
-        handRender.material.color = new Color(255, 0, 0);
-        parent.taphint(1);
-
+        //handRender.material.color = new Color(255, 0, 0);
+        handRender.material.color = new Color(255, 255, 0);
+        parent.TapHint(1,"Tap to Guard");
 
         yield return new WaitForSeconds(attackTime);
 
+        parent.GiveDamageToPlayer();
 
-        parent.givedamagetoplayer();
-
-        
-
-
-        parent.taphint(0);
+        parent.TapHint(0,"");
         handRender.material.color = Color.gray;
 
         Destroy(this);
-
+        //SkillFinish();
 
     }
 }

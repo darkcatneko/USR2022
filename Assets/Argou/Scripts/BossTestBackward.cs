@@ -18,6 +18,7 @@ public class BossTestBackward : BossActionClass
 
     protected override IEnumerator move()
     {
+        
         parent.animator.SetInteger("bossStage", 2);
         
         print("back");

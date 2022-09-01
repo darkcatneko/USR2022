@@ -35,11 +35,11 @@ public abstract class BossActionClass: MonoBehaviour
 
 
         //叫Controller去下一個動作
-        parent.nextmove();
+        parent.NextMove();
     }
 
 
-    public virtual void stop()
+    public virtual void StopAttack()
     {
         StopCoroutine(move());
         Destroy(this);

@@ -19,7 +19,7 @@ public class HpControl : MonoBehaviour
     }
 
     //可以給其他UnityEvent呼叫
-    public void getdamage(int x)
+    public void getDamage(int x)
     {
         nowHp -= x;
         

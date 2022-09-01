@@ -91,7 +91,7 @@ public class A_BossActController : MonoBehaviour
             bossAction.stopattack();
             nextBossStage = 3;
             nextmove();
-            hpControl.getdamage(1);
+            hpControl.getDamage(1);
         }
 
     }

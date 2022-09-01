@@ -19,14 +19,17 @@ public class BossStop : BossActionClass
 
     protected override IEnumerator move()
     {
+        parent.TapHint(1, "Tap to Attack!!!");
         parent.animator.SetInteger("bossStage", 3);
         handRender.material.color = Color.gray;
         print("stop");
         
 
-        yield return new WaitForSeconds(parent.canAttacktime);
+        yield return new WaitForSeconds(parent.canAttackTime);
         parent.isStunned = false;
+        parent.TapHint(0, "");
         skillfinish();
+
 
        
     }
