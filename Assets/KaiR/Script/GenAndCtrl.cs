@@ -13,7 +13,7 @@ public class GenAndCtrl : MonoBehaviour
     [SerializeField] GameObject[] PrefabLvObjs = new GameObject[4];
     [SerializeField] GameObject[] LastEnemys = new GameObject[3];
 
-    GameObject[] LvObjs = new GameObject[11];
+    GameObject[] LvObjs = new GameObject[101];
     Vector3 GapVector = new Vector3(0, 0, 3);
     float MoveSpeed = 10f;
     int LvProgress = -1;
@@ -49,7 +49,6 @@ public class GenAndCtrl : MonoBehaviour
             case "Box2":
                 if (CanOpenBox2)
                 {
-                    CanOpenBox2 = false;
                     LvObjs[LvProgress].SetActive(false);
                 }
                 else
@@ -67,6 +66,7 @@ public class GenAndCtrl : MonoBehaviour
     {
         if (!LvObjs[LvProgress].activeSelf || LvObjs[LvProgress].tag != "Enemy")
         {
+            CanOpenBox2 = false;
             StartCoroutine("Move");
         }
     }
