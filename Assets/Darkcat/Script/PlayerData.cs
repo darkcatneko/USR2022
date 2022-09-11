@@ -7,7 +7,7 @@ using System.IO;
 public class PlayerData : MonoBehaviour
 {
     PlayerAccount Account;
-
+    
 
     [ContextMenu("Save")]
     public void Save()
@@ -18,6 +18,7 @@ public class PlayerData : MonoBehaviour
         s.Close();
         Debug.Log("Save Complete");
     }
+
     [ContextMenu("Load")]
     public void Load()
     {
