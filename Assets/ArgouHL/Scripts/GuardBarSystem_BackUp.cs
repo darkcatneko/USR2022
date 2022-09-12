@@ -7,28 +7,24 @@ using TMPro;
 
 
 
-public class GuardBarSystem : MonoBehaviour
+public class GuardBarSystem_BackUp : MonoBehaviour
 {
-    
+    [SerializeField] private AttackUISystem attackUISystem;
     [SerializeField] private CanvasGroup GuardUI;
     [SerializeField] private GameObject deterBar;
-    [SerializeField] private BossActController bossActController;
-
+    [SerializeField] private float readytime =0.5f;
+    [SerializeField] private float gettime=0.5f;
     [SerializeField] TMP_Text hints;
-   
-    
     private RectTransform Rect;
     private Vector2 rectPos;
     bool isGuardsuccessd= false;
-
-    
 
     // Start is called before the first frame update
     void Start()
     {
         Rect = deterBar.GetComponent<RectTransform>();
         rectPos = Rect.anchoredPosition;
-        
+        startGuardDeter();
     }
 
  
@@ -39,51 +35,42 @@ public class GuardBarSystem : MonoBehaviour
         if(isGuardsuccessd)
         {
             hints.text = "Success";
-            
-
+            GuardUI.alpha = 0;
+            attackUISystem.startAttackTime();
         }
         else
         {
             hints.text = "Fail";
-            
+            guardUIFade();
         }
-        
 
     }
 
-    public void startGuardDeter()
+    private void startGuardDeter()
     {
         StartCoroutine("guardDetermine");
     }
 
-    public void guardUIFade()
+    IEnumerator guardUIFade()
     {
-        
-        
-        GuardUI.alpha = 0; 
-        
-       
+        yield return new WaitForSeconds(1f);
+        GuardUI.alpha = 0;
     }
 
 
     private IEnumerator guardDetermine()
     {
-        
-        float readytime = bossActController.bossAction.attackReadyTime;
-        float gettime = bossActController.bossAction.attackTime;
-
-
         GuardUI.alpha = 1;
-        
+        GuardUI.blocksRaycasts = true;
         hints.text = "Tap to Guard!!!";
-        
+        yield return new WaitForSeconds(0.4f);
         
         float time = 0;
         isGuardsuccessd = false;
-        while (time < bossActController.bossAction.attackReadyTime)
+        while (time < readytime)
         {
             print(rectPos);
-           rectPos.x = Mathf.Lerp(-600f, 600f, time / (bossActController.bossAction.attackReadyTime + gettime));
+           rectPos.x = Mathf.Lerp(-600f, 600f, time / (readytime + gettime));
             Rect.anchoredPosition = rectPos;
             time += Time.deltaTime;
             yield return null;
@@ -98,11 +85,10 @@ public class GuardBarSystem : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        isGuardsuccessd = false;
         hints.text = "Fail";
-        yield return new WaitForSeconds(0.4f);
-        guardUIFade();
-       
+        yield return new WaitForSeconds(2f);
+        GuardUI.blocksRaycasts = false;
+        GuardUI.alpha = 0;
      }
 
 

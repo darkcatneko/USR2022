@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class BossActController : MonoBehaviour
 {
-    [SerializeField] BossActionClass bossAction;
+    [SerializeField] public BossActionClass bossAction;
     [SerializeField] public Animator animator;
     // 0= 待機 , 1=攻擊 2=後退,3=暈
     [SerializeField] public int bossStage = 0;
     [SerializeField] private int nextBossStage = 1;
 
-    [SerializeField] bool tapHintsShow=true;
+    [SerializeField] bool tapHintsShow = true;
     [SerializeField] CanvasGroup tapHints;
     [SerializeField] private TMP_Text hints;
     [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damageToPlayer;
+    [SerializeField] private UnityEvent guardDetermindUIShow;
+    [SerializeField] private UnityEvent guardDetermindUIDisapper;
+    [SerializeField] private UnityEvent attackTimeUIShow;
+    [SerializeField] private UnityEvent attackTimeUIDisapper;
+    [SerializeField] private Button guardButton;
+    [SerializeField] private Button attackButton;
+
     [SerializeField] private PlayerActController playerActController;
+
 
     [Header("Boss Stage Setting")]
     [SerializeField] private int attackTimes_1;
@@ -45,6 +56,7 @@ public class BossActController : MonoBehaviour
     [SerializeField] private int maxGetDamage;
     [SerializeField] private int blockTimesBeforeStun;
     [SerializeField] private int attackTimesBeforeBack;
+
     public int canAttackTime;
 
 
@@ -72,6 +84,7 @@ public class BossActController : MonoBehaviour
     //給予傷害(透過UnityEvent去使用玩家obj上的傷害funtion)
     public void GiveDamageToPlayer()
     {
+
         if (playerActController.isDefenceing)
         {
             blockedTimes += 1;
@@ -83,24 +96,26 @@ public class BossActController : MonoBehaviour
             }
             else
             {
-                
+
                 AttackAgain();
             }
+
         }
         else
         {
             attackedTimes += 1;
             damageToPlayer.Invoke();
 
-            if (attackedTimes >= attackTimesBeforeBack) 
+            if (attackedTimes >= attackTimesBeforeBack)
             {
                 NextMove();
             }
-            else 
-            { 
-                AttackAgain(); 
+            else
+            {
+                AttackAgain();
             }
         }
+        guardDetermindUIDisapper.Invoke();
     }
 
     public void AttackAgain()
@@ -118,7 +133,7 @@ public class BossActController : MonoBehaviour
     {
         NextStage();
 
-        if (nextBossStage == 0)
+        if (nextBossStage == 0)//待機
         {
             attackedTimes = 0;
             blockedTimes = 0;
@@ -126,26 +141,29 @@ public class BossActController : MonoBehaviour
             nextBossStage = 1;
             bossAction = gameObject.AddComponent<BossIdle>();
         }
-        else if (nextBossStage == 1)
+        else if (nextBossStage == 1)//攻擊
         {
+            guardDetermindUIShow.Invoke();
             bossStage = nextBossStage;
             nextBossStage = 2;
             bossAction = gameObject.AddComponent<BossTestAttack>();
         }
-        else if (nextBossStage == 2)
+        else if (nextBossStage == 2)//後退
         {
             gettedDamage = 0;
             bossStage = nextBossStage;
             nextBossStage = 0;
             bossAction = gameObject.AddComponent<BossTestBackward>();
         }
-        else if(nextBossStage == 3)
+        else if (nextBossStage == 3)//暈
         {
+
+            attackTimeUIShow.Invoke();
             bossStage = nextBossStage;
             nextBossStage = 2;
             bossAction = gameObject.AddComponent<BossStop>();
         }
-        else if (nextBossStage == 4)//測試攻擊
+        else if (nextBossStage == 4)//
         {
             bossStage = nextBossStage;
             bossAction = gameObject.AddComponent<BossStop>();
@@ -155,11 +173,13 @@ public class BossActController : MonoBehaviour
     //被反擊暈眩後
     public void Stunned()
     {
+
         isStunned = true;
         TapHint(1, "Tap to Attack");
         nextBossStage = 3;
         NextMove();
         blockedTimes = 0;
+
     }
 
     public void TapHint(int x, string hintsText)
@@ -175,6 +195,7 @@ public class BossActController : MonoBehaviour
 
     public void StopStunned()
     {
+        attackTimeUIDisapper.Invoke();
         TapHint(0, "");
         isStunned = false;
         bossAction.StopAttack();
@@ -198,7 +219,7 @@ public class BossActController : MonoBehaviour
             canAttackTime = canAttacktime_2;
             attackTimesBeforeBack = attackTimes_2;
         }
-         
+
     }
 
     public void GetDamage(int damage)
@@ -217,6 +238,31 @@ public class BossActController : MonoBehaviour
         }
 
 
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+
+        if (context.started)//MouseDown
+        {
+            if (bossStage == 1)
+            {
+                guardButton.onClick.Invoke();
+                SimulateClick(guardButton);
+
+            }
+            else if (bossStage == 3)
+            {
+                attackButton.onClick.Invoke();
+                SimulateClick(attackButton);
+            }
+        }
+
+    }
+
+    public static void SimulateClick(Button button)
+    {
+        ExecuteEvents.Execute(button.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
     }
 
 }

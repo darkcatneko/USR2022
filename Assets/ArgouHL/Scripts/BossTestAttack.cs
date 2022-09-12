@@ -7,8 +7,7 @@ public class BossTestAttack : BossActionClass
 {
 
 
-    float moveTime = 0.5f;
-    float attackTime = 0.5f;
+    
     
 
     protected override void action()
@@ -22,10 +21,11 @@ public class BossTestAttack : BossActionClass
         parent.TapHint(0, "");
         parent.animator.SetInteger("bossStage", 1);
         print("attack");
+        
 
         //handRender.material.color = new Color(255, 255, 0);
 
-        yield return new WaitForSeconds(moveTime);
+        yield return new WaitForSeconds(attackReadyTime);
 
         //handRender.material.color = new Color(255, 0, 0);
         handRender.material.color = new Color(255, 255, 0);

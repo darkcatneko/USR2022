@@ -6,6 +6,9 @@ using UnityEngine;
 //所有boss動作的共用class
 public abstract class BossActionClass: MonoBehaviour
 {
+    public float attackReadyTime = 0.5f;
+    public float attackTime = 0.5f;
+
     //把controller設定為Parent
     public BossActController parent;
     public Renderer handRender;

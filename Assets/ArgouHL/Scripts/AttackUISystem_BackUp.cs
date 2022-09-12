@@ -4,14 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AttackUISystem : MonoBehaviour
+public class AttackUISystem_BackUp : MonoBehaviour
 {
     [SerializeField] private Slider attackTimeBar;
     [SerializeField] private Button Button;
     [SerializeField] private TMP_Text timeText;
-   
+    [SerializeField] private float maxtime;
     [SerializeField] private CanvasGroup attackUI;
-    [SerializeField] private BossActController bossActController;
 
 
     public void startAttackTime()
@@ -19,19 +18,9 @@ public class AttackUISystem : MonoBehaviour
         StartCoroutine("attackTime");
     }
 
-    public void stopAttackTime()
-    {
-        StopCoroutine("attackTime");
-        
-        attackUI.alpha = 0;
-        
-    }
     IEnumerator attackTime()
     {
-        float maxtime = bossActController.canAttackTime;
-
-
-        
+        attackUI.blocksRaycasts = true;
         attackUI.alpha = 1;
         attackTimeBar.maxValue = maxtime;
         attackTimeBar.value = maxtime;
@@ -49,7 +38,7 @@ public class AttackUISystem : MonoBehaviour
         }
 
         
-        
+        attackUI.blocksRaycasts = false;
         attackUI.alpha = 0;
     }
 
