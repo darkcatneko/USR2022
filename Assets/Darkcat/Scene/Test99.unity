@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402298, g: 0.4931627, b: 0.57223254, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657767, g: 0.4964127, b: 0.57481843, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 0, y: 0, z: 0}
     roll: 0
-  - position: {x: 0, y: 0, z: 5.7}
+  - position: {x: 0, y: 0, z: 4.7}
     roll: 0
 --- !u!4 &97201232
 Transform:
@@ -1718,7 +1718,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.9048443, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1940,7 +1940,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1429633889}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 79e62b292044c07498b51a2e102522ab, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: e97e6909bc9e2444d93f7d2869cf9efd, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -1956,6 +1956,16 @@ PlayableDirector:
     value: {fileID: 1357803052}
   - key: {fileID: 5345682497778483310, guid: 79e62b292044c07498b51a2e102522ab, type: 2}
     value: {fileID: 934389246}
+  - key: {fileID: -3235486737151922094, guid: e97e6909bc9e2444d93f7d2869cf9efd, type: 2}
+    value: {fileID: 1357803053}
+  - key: {fileID: 3538947415157689899, guid: e97e6909bc9e2444d93f7d2869cf9efd, type: 2}
+    value: {fileID: 646088906}
+  - key: {fileID: -7805152402511841597, guid: e97e6909bc9e2444d93f7d2869cf9efd, type: 2}
+    value: {fileID: 2063828736}
+  - key: {fileID: -8419848508228006195, guid: e97e6909bc9e2444d93f7d2869cf9efd, type: 2}
+    value: {fileID: 1357803052}
+  - key: {fileID: -1754534546226642218, guid: e97e6909bc9e2444d93f7d2869cf9efd, type: 2}
+    value: {fileID: 1028863429}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1429633891
