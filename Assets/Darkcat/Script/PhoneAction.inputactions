@@ -1,0 +1,34 @@
+{
+    "name": "PhoneAction",
+    "maps": [
+        {
+            "name": "Touch",
+            "id": "d614a482-0e87-423c-ad93-c198c27077ec",
+            "actions": [
+                {
+                    "name": "TouchInput",
+                    "type": "PassThrough",
+                    "id": "71652191-0ce9-4f53-a5e9-237894131685",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b6c21241-7e2e-4a75-bebf-f3776ad465b3",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
