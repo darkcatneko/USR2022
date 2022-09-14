@@ -18,6 +18,7 @@ public class BossTestAttack : BossActionClass
 
     protected override IEnumerator move()
     {
+            
         parent.TapHint(0, "");
         parent.animator.SetInteger("bossStage", 1);
         print("attack");
