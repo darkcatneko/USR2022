@@ -21,4 +21,29 @@ public class PlayerAccount : ScriptableObject
     {
         Player_Money += money;
     }
+    public void Reverse(Account ac)
+    {
+        Player_Money = ac.Player_Money;
+        NowSkin = ac.NowSkin;
+        for (int i = 0; i < Skin_Pack.Length; i++)
+        {
+            Skin_Pack[i] = ac.Skin_Pack[i];
+        }
+    }
+}
+    [System.Serializable]
+public class Account
+{
+    public int Player_Money;
+    public string NowSkin = "Normal";
+    public bool[] Skin_Pack = new bool[12];
+   public Account (PlayerAccount ac)
+    {
+        Player_Money = ac.Player_Money;
+        NowSkin = ac.NowSkin;
+        for (int i = 0; i < Skin_Pack.Length; i++)
+        {
+            Skin_Pack[i] = ac.Skin_Pack[i];
+        }
+    }
 }
