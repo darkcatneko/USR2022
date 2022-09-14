@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 public class BossActController : MonoBehaviour
 {
+    [SerializeField] public ParticleSystem charging_1;
+    [SerializeField] public ParticleSystem charging_2;
+    [SerializeField] public ParticleSystem attacking_1;
     [SerializeField] public BossActionClass bossAction;
     [SerializeField] public Animator animator;
     // 0= 待機 , 1=攻擊 2=後退,3=暈
@@ -21,6 +24,7 @@ public class BossActController : MonoBehaviour
     [SerializeField] private TMP_Text hints;
     [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damageToPlayer;
+    [SerializeField] private UnityEvent guardSuccessed;
     [SerializeField] private UnityEvent guardDetermindUIShow;
     [SerializeField] private UnityEvent guardDetermindUIDisapper;
     [SerializeField] private UnityEvent attackTimeUIShow;
@@ -87,9 +91,10 @@ public class BossActController : MonoBehaviour
 
         if (playerActController.isDefenceing)
         {
+            guardSuccessed.Invoke();
             blockedTimes += 1;
             playerActController.DefenceDown();
-
+            
             if (blockedTimes >= blockTimesBeforeStun)
             {
                 Stunned();
@@ -264,5 +269,10 @@ public class BossActController : MonoBehaviour
     {
         ExecuteEvents.Execute(button.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
     }
+
+
+    
+
+
 
 }
