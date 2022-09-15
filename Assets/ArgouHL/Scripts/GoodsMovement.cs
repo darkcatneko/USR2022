@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class GoodsMovement : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    private GameObject player;
+    private GameObject boss;
     private Vector3 orgPos;
     private float distanceToPlayer;
     private float speed;
-    private float angle;
-    private float heightAdjust = 0.7f;
+    private float heightAdjust = 0.5f;
     private float gravity = -9.8f;
+    private float angle;
 
-
-    private void Start()
+    public void StartMove(float _angle)
     {
+        angle = _angle;
         player = GameObject.FindGameObjectWithTag("Player");
-        distanceToPlayer =  transform.position.z- player.transform.position.z;
+        boss =  GameObject.FindGameObjectWithTag("Boss");
+        distanceToPlayer = transform.position.z - player.transform.position.z;
+        
         orgPos = transform.position;
-        angle = Random.Range(5f, 45f);
-        speed = Mathf.Sqrt(-gravity*distanceToPlayer*distanceToPlayer/(2*Mathf.Cos(Mathf.Deg2Rad*angle) * Mathf.Cos(Mathf.Deg2Rad * angle)*(distanceToPlayer*Mathf.Tan(Mathf.Deg2Rad * angle)-heightAdjust)));
-        print(speed);
-        StartMove();
+        
+        speed = Mathf.Sqrt(-gravity * distanceToPlayer * distanceToPlayer / (2 * Mathf.Cos(Mathf.Deg2Rad * angle) * Mathf.Cos(Mathf.Deg2Rad * angle) * (distanceToPlayer * Mathf.Tan(Mathf.Deg2Rad * angle) - heightAdjust)));
 
-    }
-
-    private void StartMove()
-    {
+        boss.GetComponent<ThrowGoodsBossController>().nextThrowTime = boss.GetComponent<ThrowGoodsBossController>().minNextThrowTime+distanceToPlayer /(Mathf.Cos(Mathf.Deg2Rad * angle) * speed)-distanceToPlayer/(Mathf.Cos(Mathf.Deg2Rad *boss.GetComponent<GoodSpawn>().minAngle) * speed);
         StartCoroutine("Throwed");
+
     }
 
     private IEnumerator Throwed()
@@ -46,8 +45,7 @@ public class GoodsMovement : MonoBehaviour
 
 
         orgPos = transform.position;
-        angle = Random.Range(25f, 60f);
-        speed = Mathf.Sqrt(-gravity * distanceToPlayer * distanceToPlayer / (2 * Mathf.Cos(Mathf.Deg2Rad * angle) * Mathf.Cos(Mathf.Deg2Rad * angle) * (distanceToPlayer * Mathf.Tan(Mathf.Deg2Rad * angle) - heightAdjust)));
+        
         
 
 

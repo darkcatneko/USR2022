@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class BossTestBackward : BossActionClass
 {
+   
 
-
-    
     float backTime = 0.5f;
     
 

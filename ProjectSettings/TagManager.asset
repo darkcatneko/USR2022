@@ -9,6 +9,7 @@ TagManager:
   - Box2
   - NoneObj
   - Lock
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - SpecialFX
   - 
   - 
   - 
