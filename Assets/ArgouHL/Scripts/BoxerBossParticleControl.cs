@@ -4,41 +4,56 @@ using UnityEngine;
 
 public class BoxerBossParticleControl : MonoBehaviour
 {
-    [SerializeField] public ParticleSystem charging_1;
-    [SerializeField] public ParticleSystem charging_2;
-    [SerializeField] public ParticleSystem attacking_1;
-    [SerializeField] public ParticleSystem attacking_2;
-    [SerializeField] public ParticleSystem attacking_3;
-    [SerializeField] public ParticleSystem guardEffect;
+    [SerializeField] private ParticleSystem[] chargingEffects;
+    [SerializeField] private ParticleSystem[] attackEffects;
+    [SerializeField] private ParticleSystem[] attackEffects_2;
+    [SerializeField] private ParticleSystem[] guardEffects;
 
     public void charging()
     {
-        charging_1.Play();
-        charging_2.Play();
-        attacking_3.Play();
+        for(int i =0; i < chargingEffects.Length; i++)
+        {
+            chargingEffects[i].Play(); 
+        }
+
+        for (int i = 0; i < attackEffects_2.Length; i++)
+        {
+            attackEffects_2[i].Play();
+        }
     }
 
     public void attacking()
     {
-        charging_1.Stop();
-        charging_2.Stop();
-        attacking_1.Play();
-        attacking_2.Play();
-        
+        for (int i = 0; i < chargingEffects.Length; i++)
+        {
+            chargingEffects[i].Stop();
+        }
+        for (int i = 0; i < attackEffects.Length; i++)
+        {
+            attackEffects[i].Play();
+        }
     }
 
 
     public void attackEnd()
     {
-        attacking_1.Stop();
-        attacking_2.Stop();
-        attacking_3.Stop();
+        for (int i = 0; i < attackEffects.Length; i++)
+        {
+            attackEffects[i].Stop();
+        }
+        for (int i = 0; i < attackEffects_2.Length; i++)
+        {
+            attackEffects_2[i].Stop();
+        }
 
     }
 
     public void Guarded()
     {
-        guardEffect.Play();
+        for (int i = 0; i < guardEffects.Length; i++)
+        {
+            guardEffects[i].Play();
+        }
     }
 
 }

@@ -141,7 +141,7 @@ public class BossActController_B : MonoBehaviour
     public void stunned()
     {
         isStunned = true;
-        taphint(1,"Tap to Attack");
+        taphint(0,"Tap to Attack");
         nextBossStage = 3;
         nextmove();
         blockedTimes = 0;

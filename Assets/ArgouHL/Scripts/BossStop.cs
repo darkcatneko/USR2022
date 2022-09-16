@@ -19,7 +19,7 @@ public class BossStop : BossActionClass
 
     protected override IEnumerator move()
     {
-        parent.TapHint(1, "Tap to Attack!!!");
+        
         parent.animator.SetInteger("bossStage", 3);
         handRender.material.color = Color.gray;
         print("stop");
