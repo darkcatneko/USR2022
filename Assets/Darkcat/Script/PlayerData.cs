@@ -9,7 +9,7 @@ public class PlayerData : MonoBehaviour
 {
 
     public PlayerAccount ThisPlayer;
-    public TextMeshProUGUI PlayerMoneyTest;
+    //public TextMeshProUGUI PlayerMoneyTest;
 
 
     [ContextMenu("Save")]
@@ -41,7 +41,7 @@ public class PlayerData : MonoBehaviour
     }
     private void Update()
     {
-        PlayerMoneyTest.text = ThisPlayer.Player_Money.ToString();
+        //PlayerMoneyTest.text = ThisPlayer.Player_Money.ToString();
     }
 
     public void SaveTest()
