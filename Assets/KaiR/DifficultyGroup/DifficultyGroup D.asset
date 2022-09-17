@@ -63,4 +63,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  GenGroups: []
+  GenGroups:
+  - {fileID: 11400000, guid: 3ad20ce4d0ecbc445bc6bc7697cf1d93, type: 2}
+  - {fileID: 11400000, guid: 6780da2fc48d21f4d920145e5ea57a4d, type: 2}
+  - {fileID: 11400000, guid: 52680380ef7d160448fab887f98a0ae3, type: 2}
