@@ -3,26 +3,89 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ThrowGoodsBossController : MonoBehaviour
 {
     [SerializeField] private Animator bossAnimator;
     [SerializeField] private UnityEvent throwGoodsEvents;
-    [SerializeField] public float minNextThrowTime;
+    private float randomMaxThrowTimeOffset;
+    [SerializeField] private Slider timeBar;
+    [SerializeField] private float gameTime;
+    
+    [Header("Stage 1")]
+
+    [SerializeField] private float stage1MinNextThrowTime;
+    [SerializeField] private float stage1MaxNextThrowTime;
+    [SerializeField] private float timeToStage2;
+    [Header("Stage 2")]
+    [SerializeField] private float stage2MinNextThrowTime;
+    [SerializeField] private float stage2MaxNextThrowTime;
+    [SerializeField] private float timeToStage3;
+    
+    [Header("Stage 1")]
+    [SerializeField] private float stage3MinNextThrowTime;
+    [SerializeField] private float stage3MaxNextThrowTime;
+
+
+
+    [SerializeField] private bool gamestart;
     public float nextThrowTime;
+    private float minNextThrowTime;
+    private float maxNextimeOffset;
 
     private void Start()
     {
-        nextThrowTime = minNextThrowTime;
+        timeBar.maxValue = gameTime;
+        timeBar.value = gameTime;
+        minNextThrowTime = stage1MinNextThrowTime;
+        maxNextimeOffset = stage1MaxNextThrowTime;
+        nextThrowTime = stage1MinNextThrowTime;
         StartCoroutine("ThrowGoodsLoop");
+        StartCoroutine("GameStart");
     }
+
+
+    private IEnumerator GameStart()
+    {
+        while (gameTime> timeToStage2)
+        {
+            gameTime-=Time.deltaTime;
+            yield return null;
+            timeBar.value = gameTime;
+        }
+        
+        minNextThrowTime = stage2MinNextThrowTime;
+        maxNextimeOffset = stage2MaxNextThrowTime;
+
+        while (gameTime > timeToStage3)
+        {
+            gameTime -= Time.deltaTime;
+            yield return null;
+            timeBar.value = gameTime;
+        }
+
+        minNextThrowTime = stage3MinNextThrowTime;
+        maxNextimeOffset = stage3MaxNextThrowTime;
+
+        while (gameTime >0)
+        {
+            gameTime -= Time.deltaTime;
+            yield return null;
+            timeBar.value = gameTime;
+        }
+
+        StopCoroutine("ThrowGoodsLoop");
+    }
+
+
 
 
 
     private void ThrowGoods()
     {
-        bossAnimator.SetTrigger("ThrowObj");
-        throwGoodsEvents.Invoke();
+    bossAnimator.SetTrigger("ThrowObj");
+    throwGoodsEvents.Invoke();
     }
 
 
@@ -30,9 +93,11 @@ public class ThrowGoodsBossController : MonoBehaviour
     {
         while (true)
         {
-            print(nextThrowTime);
+            
             yield return new WaitForSeconds(nextThrowTime);
             ThrowGoods();
+            yield return new WaitForSeconds(Random.Range(minNextThrowTime, maxNextimeOffset));
+            
         }
     }
 
