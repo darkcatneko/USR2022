@@ -12,22 +12,76 @@ public class GenAndCtrl : MonoBehaviour
     [SerializeField] CameraAnimationController CameraAnimCtrler;
     [SerializeField] GameObject[] PrefabLvObjs = new GameObject[4];
     [SerializeField] GameObject[] LastEnemys = new GameObject[3];
+    [SerializeField] List<DifficultyGroup_ScriptableObj> DifficultyGroups = new List<DifficultyGroup_ScriptableObj>();
+    [SerializeField] int SpawnSum;
 
-    GameObject[] LvObjs = new GameObject[101];
+    List<GameObject> LvObjs = new List<GameObject>();
     Vector3 GapVector = new Vector3(0, 0, 3);
+    int SpawnCount = 0;
     float MoveSpeed = 10f;
-    int LvProgress = -1;
+    public int LvProgress = -1;
     bool CanOpenBox2 = false;
+
+    int Choose(float[] probs)
+    {
+
+        float total = 0;
+
+        foreach (float elem in probs)
+        {
+            total += elem;
+        }
+
+        float randomPoint = Random.value * total;
+
+        for (int i = 0; i < probs.Length; i++)
+        {
+            if (randomPoint < probs[i])
+            {
+                return i;
+            }
+            else
+            {
+                randomPoint -= probs[i];
+            }
+        }
+        return probs.Length - 1;
+    }
+
+    void SpawnLvObjs()
+    {
+        DifficultyGroup_ScriptableObj SelectedDifficultyGroup;
+        GenGroup_ScriptableObj SelectedGenGroup;
+        float[] DifficultyProbs = new float[DifficultyGroups.Count];
+        for (byte i=0; i < DifficultyGroups.Count; i++)
+        {
+            DifficultyProbs[i] = DifficultyGroups[i].DifficultyCurve.Evaluate((float)SpawnCount / SpawnSum);
+        }
+        SelectedDifficultyGroup = DifficultyGroups[Choose(DifficultyProbs)];
+        SelectedGenGroup = SelectedDifficultyGroup.GenGroups[Random.Range(0, SelectedDifficultyGroup.GenGroups.Count)];
+        foreach(GameObject GenObj in SelectedGenGroup.Group)
+        {
+            if (SpawnCount == 0)
+            {
+                LvObjs.Add(Instantiate(GenObj, LvStartPoint.transform.position, LvStartPoint.transform.rotation));
+            }
+            else
+            {
+                LvObjs.Add(Instantiate(GenObj, LvObjs[LvObjs.Count - 1].transform.position + GapVector,
+                                               LvObjs[LvObjs.Count - 1].transform.rotation));
+            }
+            SpawnCount++;
+        }
+        if (SpawnCount < SpawnSum)
+        {
+            SpawnLvObjs();
+        }
+    }
 
     void Start()
     {
-        LvObjs[0] = Instantiate(PrefabLvObjs[1], LvStartPoint.transform.position, LvStartPoint.transform.rotation);
-        for(byte i = 1; i < LvObjs.Length - 1; i++)
-        {
-            LvObjs[i] = Instantiate(PrefabLvObjs[Random.Range(0, 4)], LvObjs[i - 1].transform.position + GapVector,
-                                                                      LvObjs[i - 1].transform.rotation);
-        }
-        LvObjs[LvObjs.Length - 1] = LastEnemys[0];
+        SpawnLvObjs();
+        LvObjs.Add(LastEnemys[0]);
         StartCoroutine("Move");
     }
 
@@ -87,7 +141,7 @@ public class GenAndCtrl : MonoBehaviour
             yield return null;
         }
         CameraAnimCtrler.Is_Walking = false;
-        if (LvProgress == LvObjs.Length - 1)
+        if (LvProgress == LvObjs.Count - 1)
         {
             GameCanvas.SetActive(false);
             FastTapCanvas.SetActive(true);
