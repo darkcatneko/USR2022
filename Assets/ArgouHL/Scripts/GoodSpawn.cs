@@ -12,13 +12,13 @@ public class GoodSpawn : MonoBehaviour
     [SerializeField] public float minAngle;
     [SerializeField] private float maxAngle;
     [SerializeField] private ThrowGoodsBossController throwGoodsBossController;
-    private int count = 0;
+    public float highAnglePercentage;
     [SerializeField] private float specialAngle = 60f;
     private float inputAngle;
     private float distanceToPlayer;
     private float heightAdjust = 1f;
     private float gravity = -9.8f;
-
+    private bool isHighGoodThrowed = false;
 
     
 
@@ -29,19 +29,28 @@ public class GoodSpawn : MonoBehaviour
         GameObject good = Instantiate(goods[goodsIndex], spawnPoint.transform.position, Quaternion.identity);
         distanceToPlayer = spawnPoint.transform.position.z - player.transform.position.z;
 
-        if (count < 5)
-        { 
-            count++;
-            inputAngle = Random.Range(minAngle, maxAngle);
-
-        }
-        else
+        if(!isHighGoodThrowed)
         {
-            count = 0;
-            inputAngle = specialAngle;
-           
-           
+            if (Random.Range(0f,1f) > highAnglePercentage ? true: false)
+            {
+               
+                inputAngle = Random.Range(minAngle, maxAngle);
+
+            }
+            else
+            {
+               
+                inputAngle = specialAngle;
+                isHighGoodThrowed = true;
+
+
+            }
         }
+        else 
+        {
+            inputAngle = Random.Range(minAngle, maxAngle);
+        }
+        
 
         throwGoodsBossController.nextThrowTime = distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * inputAngle)* Speed(inputAngle)) - distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * minAngle) * Speed(minAngle));
 
