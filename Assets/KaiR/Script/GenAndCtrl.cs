@@ -115,6 +115,7 @@ public class GenAndCtrl : MonoBehaviour
                 }
                 break;
             case "NoneObj":
+                SprintGameController.instance.MinusHealth();
                 break;
         }
     }
@@ -125,6 +126,10 @@ public class GenAndCtrl : MonoBehaviour
         {
             CanOpenBox2 = false;
             StartCoroutine("Move");
+        }
+        else
+        {
+            SprintGameController.instance.MinusHealth();
         }
     }
 

@@ -17,6 +17,10 @@ public class SprintGameController : MonoBehaviour
     {
         MarkerStart = Marker.transform.position;
     }
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Update()
     {
         TimerUpdate();
@@ -25,7 +29,7 @@ public class SprintGameController : MonoBehaviour
     }
     public void MinusHealth()
     {
-        PlayerHealthBar.transform.DOShakePosition(0.3f,30);
+        PlayerHealthBar.transform.DOShakePosition(0.13f,15);
         DOTween.To(() => PlayerHealth, x => PlayerHealth = x, PlayerHealth - 10f, 0.3f);
         if (PlayerHealth-10f==0)
         {
