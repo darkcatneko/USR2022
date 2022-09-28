@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using System;
 
 public class GenAndCtrl : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class GenAndCtrl : MonoBehaviour
             total += elem;
         }
 
-        float randomPoint = Random.value * total;
+        float randomPoint = UnityEngine.Random.value * total;
 
         for (int i = 0; i < probs.Length; i++)
         {
@@ -57,8 +58,10 @@ public class GenAndCtrl : MonoBehaviour
         {
             DifficultyProbs[i] = DifficultyGroups[i].DifficultyCurve.Evaluate((float)SpawnCount / SpawnSum);
         }
+        Array.Sort(DifficultyProbs);
+        Array.Reverse(DifficultyProbs);
         SelectedDifficultyGroup = DifficultyGroups[Choose(DifficultyProbs)];
-        SelectedGenGroup = SelectedDifficultyGroup.GenGroups[Random.Range(0, SelectedDifficultyGroup.GenGroups.Count)];
+        SelectedGenGroup = SelectedDifficultyGroup.GenGroups[UnityEngine.Random.Range(0, SelectedDifficultyGroup.GenGroups.Count)];
         foreach(GameObject GenObj in SelectedGenGroup.Group)
         {
             if (SpawnCount == 0)
