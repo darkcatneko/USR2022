@@ -10,14 +10,18 @@ public class SprintGameController : MonoBehaviour
 
     public float PlayerHealth = 150f;
 
-    public Slider PlayerHealthBar; public Image Marker; public GameObject MarkerEnd;
-
-    [SerializeField] GenAndCtrl LevelSystem;
+    public Image PlayerHealthBar; public Image Marker; public GameObject MarkerEnd;
+    private Vector3 MarkerStart;
+    public GenAndCtrl LevelSystem;
+    private void Start()
+    {
+        MarkerStart = Marker.transform.position;
+    }
     private void Update()
     {
         TimerUpdate();
-        PlayerHealthBar.value = PlayerHealth/150f; 
-        //PointerMovement(LevelSystem.)
+        PlayerHealthBar.fillAmount = PlayerHealth/150f;
+        PointerMovement(LevelSystem.LvProgress);
     }
     public void MinusHealth()
     {
@@ -42,6 +46,7 @@ public class SprintGameController : MonoBehaviour
     }
     public void PointerMovement(float LevelProgress)
     {
-        Marker.transform.position = (MarkerEnd.transform.position - Marker.transform.position) * (LevelProgress / 150f) + Marker.transform.position;
+        
+        Marker.transform.position = (MarkerEnd.transform.position - MarkerStart) * (LevelProgress / 150f) + MarkerStart;
     }
 }

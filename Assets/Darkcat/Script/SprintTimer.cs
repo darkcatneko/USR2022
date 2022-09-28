@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SprintTimer : MonoBehaviour
 {
     public float InputTimer = 1;
     public Slider InputTimerSlide;
+    [SerializeField] GenAndCtrl LevelController;
     void Start()
     {
         
@@ -25,6 +27,7 @@ public class SprintTimer : MonoBehaviour
         {
             InputTimer = 1;
             Debug.Log("強制輸入動作");
+            LevelController.ForwardBtn_Click();
         }
    }
     public void RestartTimer()
