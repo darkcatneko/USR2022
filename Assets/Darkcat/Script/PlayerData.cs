@@ -54,6 +54,7 @@ public class PlayerData : MonoBehaviour
         Debug.Log(Load().Player_Money.ToString());
         ThisPlayer.Reverse(Load());
     }
+    
     private void OnApplicationQuit()
     {
         ThisPlayer.Player_Money = 0;

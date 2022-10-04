@@ -53,4 +53,5 @@ public class SprintGameController : MonoBehaviour
         
         Marker.transform.position = (MarkerEnd.transform.position - MarkerStart) * (LevelProgress / 150f) + MarkerStart;
     }
+    
 }
