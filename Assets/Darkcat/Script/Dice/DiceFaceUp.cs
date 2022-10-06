@@ -1,0 +1,62 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DiceFaceUp : MonoBehaviour
+{
+    private Rigidbody m_rigidbody;
+    public bool StartGame = false;
+    public Transform[] Sides = new Transform[6];
+    void Start()
+    {
+        m_rigidbody = this.GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    private void FixedUpdate()
+    {
+        if (m_rigidbody.velocity.magnitude > 0.0005f && StartGame == false)
+        {
+            StartGame = true;
+        }
+        if (m_rigidbody.velocity.magnitude < 0.0005f && StartGame == true)
+        {
+            Debug.Log(CheckUpSide().ToString());
+            StartGame = false;
+        }
+    }
+    public DiceEnum CheckUpSide()
+    {
+        int LowestNum = 0;
+        float Lowest = Sides[0].position.y;
+        for (int i = 0; i < Sides.Length; i++)
+        {
+            if (Sides[i].position.y <= Lowest)
+            {
+                Lowest = Sides[i].position.y;
+                LowestNum = i;
+            }
+        }
+        switch (LowestNum)
+        {
+            case 0:
+                return DiceEnum.Six;
+            case 1:
+                return DiceEnum.Five;
+            case 2:
+                return DiceEnum.Four;
+            case 3:
+                return DiceEnum.Three;
+            case 4:
+                return DiceEnum.Two;
+            case 5:
+                return DiceEnum.One;
+        }
+        return DiceEnum.One;
+    }
+    
+}
