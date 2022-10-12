@@ -6,7 +6,9 @@ public class DiceFaceUp : MonoBehaviour
 {
     private Rigidbody m_rigidbody;
     public bool StartGame = false;
+    public bool CanRead = false;
     public Transform[] Sides = new Transform[6];
+    public DiceEnum DR;
     void Start()
     {
         m_rigidbody = this.GetComponent<Rigidbody>();
@@ -22,12 +24,14 @@ public class DiceFaceUp : MonoBehaviour
         if (m_rigidbody.velocity.magnitude > 0.0005f && StartGame == false)
         {
             StartGame = true;
+            CanRead = false;
         }
         if (m_rigidbody.velocity.magnitude < 0.0005f && StartGame == true)
         {
-            Debug.Log(CheckUpSide().ToString());
+            DR = CheckUpSide();
             StartGame = false;
-        }
+            CanRead = true;
+}
     }
     public DiceEnum CheckUpSide()
     {
