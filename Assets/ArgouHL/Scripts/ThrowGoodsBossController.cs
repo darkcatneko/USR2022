@@ -92,7 +92,7 @@ public class ThrowGoodsBossController : MonoBehaviour
 
     private void ThrowGoods()
     {
-    bossAnimator.SetTrigger("ThrowObj");
+    bossAnimator.SetTrigger("throw");
     throwGoodsEvents.Invoke();
     }
 

@@ -10,9 +10,9 @@ using UnityEngine.UI;
 
 public class BossActController : MonoBehaviour
 {
-    [SerializeField] public ParticleSystem charging_1;
-    [SerializeField] public ParticleSystem charging_2;
-    [SerializeField] public ParticleSystem attacking_1;
+    //[SerializeField] public ParticleSystem charging_1;
+    //[SerializeField] public ParticleSystem charging_2;
+    //[SerializeField] public ParticleSystem attacking_1;
     [SerializeField] public BossActionClass bossAction;
     [SerializeField] public Animator animator;
     // 0= 待機 , 1=攻擊 2=後退,3=暈

@@ -29,7 +29,7 @@ public class GoodsMovement : MonoBehaviour
 
     private IEnumerator Throwed()
     {
-        yield return new WaitForSeconds(11f * 1f / 60f);
+        yield return new WaitForSeconds(19f * 1f / 24f);
         float time = 0;
         float duration = 4f*1f/60f;
         //while (time < duration)

@@ -8,7 +8,7 @@ public abstract class BossActionClass: MonoBehaviour
 {
     public float attackReadyTime = 0.5f;
     public float attackTime = 0.5f;
-
+    public BoxerBossParticleControl boxerBossParticleControl;
     //把controller設定為Parent
     public BossActController parent;
     public Renderer handRender;
@@ -20,8 +20,8 @@ public abstract class BossActionClass: MonoBehaviour
         //把controller設定為Parent
         
         parent = GetComponent<BossActController>();
-
-        handRender = GameObject.Find("hand").GetComponent<Renderer>();
+        boxerBossParticleControl = parent.GetComponent<BoxerBossParticleControl>();
+        //handRender = GameObject.Find("hand").GetComponent<Renderer>();
         action();
     }
 
