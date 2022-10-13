@@ -21,7 +21,7 @@ public class BossStop : BossActionClass
     {
         
         parent.animator.SetInteger("bossStage", 3);
-        handRender.material.color = Color.gray;
+        //handRender.material.color = Color.gray;
         print("stop");
         
 
