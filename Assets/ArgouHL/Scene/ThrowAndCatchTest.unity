@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 34.58}
+  m_LocalPosition: {x: 0, y: 0, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -177,7 +177,22 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 811842}
         m_TargetAssemblyTypeName: GoodSpawn, Assembly-CSharp
-        m_MethodName: spawnGoods
+        m_MethodName: throwGood
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnGoodsEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 811842}
+        m_TargetAssemblyTypeName: GoodSpawn, Assembly-CSharp
+        m_MethodName: spawnGood
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -194,15 +209,19 @@ MonoBehaviour:
   stage1MaxNextThrowTime: 1.5
   timeToStage2: 40
   stage1HighPercentage: 0.1
+  stage1WrongGoodPercentage: 0.1
   stage2MinNextThrowTime: 0.6
   stage2MaxNextThrowTime: 1
   timeToStage3: 20
   stage2HighPercentage: 0.2
-  stage3MinNextThrowTime: 0.2
-  stage3MaxNextThrowTime: 0.6
+  stage2WrongGoodPercentage: 0.2
+  stage3MinNextThrowTime: 0.4
+  stage3MaxNextThrowTime: 0.7
   stage3HighPercentage: 0.5
+  stage3WrongGoodPercentage: 0.5
   gamestart: 0
   nextThrowTime: 1
+  animatorSpeed: 1
 --- !u!114 &811842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,15 +235,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goods:
-  - {fileID: 6879257992470340662, guid: 3adfd99adcb573f47b7992c6669be01f, type: 3}
-  - {fileID: 4637782021641535741, guid: c84e100afcb27c5459c234286b3b6ec2, type: 3}
+  - {fileID: 8019549767469885628, guid: 97f5c5b5b92353d49a3a173dbcc7066f, type: 3}
+  - {fileID: 4917932064069041517, guid: 248ad089ef345ab4297313d6544b19f0, type: 3}
   - {fileID: 9070737774607598411, guid: d17091e349a9baa418dee415d684fc87, type: 3}
   - {fileID: 1982114931200403553, guid: 77e15babec4cacb498f5b08eec02eb05, type: 3}
   - {fileID: 5463811700576361336, guid: 32376a6dfda4e9a4d89aa8a86e80d9dd, type: 3}
-  - {fileID: 5236023270811175685, guid: e4ecf5eee1d9f8e4ab46eda4d51e1f8d, type: 3}
+  - {fileID: 1284768564306855426, guid: afe169db902400b499cd548463721a1f, type: 3}
   notGoods:
-  - {fileID: 4422116402055799293, guid: 6d2e8475f04b8ae4598a9253f2ae5df2, type: 3}
-  - {fileID: 1083580230235315361, guid: 8385abd5d15a6e8428e9209d74cba276, type: 3}
+  - {fileID: 4960343560628204279, guid: e86d1c92394c2ce4d8b2400da180bd54, type: 3}
+  - {fileID: 3059207610167037571, guid: 2354933efd10e134498aef0562fc8f9b, type: 3}
   Special: []
   spawnPoint: {fileID: 795668608}
   player: {fileID: 1274570387}
@@ -232,7 +251,9 @@ MonoBehaviour:
   maxAngle: 25
   throwGoodsBossController: {fileID: 811841}
   highAnglePercentage: 0
+  wrongGoodPercentage: 0
   specialAngle: 50
+  currentGood: {fileID: 0}
 --- !u!1 &78009690
 GameObject:
   m_ObjectHideFlags: 0
@@ -3444,7 +3465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1745043956
 RectTransform:
   m_ObjectHideFlags: 0

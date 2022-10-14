@@ -13,49 +13,92 @@ public class GoodSpawn : MonoBehaviour
     [SerializeField] private float maxAngle;
     [SerializeField] private ThrowGoodsBossController throwGoodsBossController;
     public float highAnglePercentage;
+    public float wrongGoodPercentage;
     [SerializeField] private float specialAngle = 60f;
+    [SerializeField] private GameObject currentGood;
     private float inputAngle;
     private float distanceToPlayer;
     private float heightAdjust = 1f;
     private float gravity = -9.8f;
-    private bool isHighGoodThrowed = false;
-
-    
-
-    public void spawnGoods()
+    private bool isHighGoodThrowed = true;
+    private bool isCurrentNotGood = true;
+    private int lastgoodsIndex = 0;
+    private void Start()
     {
-        int goodsIndex = Random.Range(0, goods.Length);
-        int notGoodsIndex = Random.Range(0, goods.Length);
-        GameObject good = Instantiate(goods[goodsIndex], spawnPoint.transform.position, Quaternion.identity);
-        distanceToPlayer = spawnPoint.transform.position.z - player.transform.position.z;
+      
+    }
 
-        if(!isHighGoodThrowed)
+
+    public void spawnGood()
+    {
+        
+        print("spawnGood");
+        distanceToPlayer = spawnPoint.transform.position.z - player.transform.position.z;
+        if (isCurrentNotGood)
         {
-            if (Random.Range(0f,1f) > highAnglePercentage ? true: false)
+            int goodsIndex = Random.Range(0, goods.Length);
+            while(lastgoodsIndex == goodsIndex)
             {
-               
+                goodsIndex = Random.Range(0, goods.Length);
+            }
+            lastgoodsIndex = goodsIndex;
+            currentGood = Instantiate(goods[goodsIndex], spawnPoint.transform.position, Quaternion.identity);
+            isCurrentNotGood = false;
+        }
+        else
+        {
+            if (Random.Range(0f, 1f) > wrongGoodPercentage ? true : false)
+            {
+                int goodsIndex = Random.Range(0, goods.Length);
+                currentGood = Instantiate(goods[goodsIndex], spawnPoint.transform.position, Quaternion.identity);
+                isCurrentNotGood = false;
+
+            }
+            else
+            {
+                int notGoodsIndex = Random.Range(0, notGoods.Length);
+                currentGood = Instantiate(notGoods[notGoodsIndex], spawnPoint.transform.position, Quaternion.identity);
+                isCurrentNotGood = true;
+            }
+        }
+
+
+        if (!isHighGoodThrowed)
+        {
+            if (Random.Range(0f, 1f) > highAnglePercentage ? true : false)
+            {
+
                 inputAngle = Random.Range(minAngle, maxAngle);
 
             }
             else
             {
-               
+
                 inputAngle = specialAngle;
                 isHighGoodThrowed = true;
 
 
             }
         }
-        else 
+        else
         {
             inputAngle = Random.Range(minAngle, maxAngle);
         }
-        
 
-        throwGoodsBossController.nextThrowTime = distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * inputAngle)* Speed(inputAngle)) - distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * minAngle) * Speed(minAngle));
 
-        good.GetComponent<GoodsMovement>().StartMove(inputAngle, Speed(inputAngle), gravity);
+        throwGoodsBossController.nextThrowTime = distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * inputAngle) * Speed(inputAngle)) - distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * minAngle) * Speed(minAngle));
+        print("s" + throwGoodsBossController.nextThrowTime);
+
     }
+
+
+    public void throwGood()
+    {
+        
+        currentGood.AddComponent<GoodsMovement>().StartMove(inputAngle, Speed(inputAngle), gravity);
+        
+    }
+
 
     private float Speed(float _angle)
     {
@@ -63,7 +106,7 @@ public class GoodSpawn : MonoBehaviour
         return speed;
     }
 
-
+    
 
 
 
