@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4051984906040242182}
   m_Layer: 0
-  m_Name: SugerObject
-  m_TagString: Untagged
+  m_Name: Suger
+  m_TagString: Suger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +95,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 242bff835cc780c46a46a0f264cf5d30, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e11531e4454c4494c800914312032fdf, type: 2}
     - target: {fileID: 919132149155446097, guid: 242bff835cc780c46a46a0f264cf5d30, type: 3}
       propertyPath: m_Name
       value: sugar

@@ -93,8 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8550764897754175985}
   m_Layer: 0
-  m_Name: medicine jar (1)
-  m_TagString: Untagged
+  m_Name: medicine jar C
+  m_TagString: Jar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

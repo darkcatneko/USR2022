@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class GoodSpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject[] goods;
+    
+    [SerializeField] private GameObject[] goods_1;
+    [SerializeField] private GameObject[] goods_2;
+    [SerializeField] private GameObject[] goods_3;
+    private GameObject[][] goods;
     [SerializeField] private GameObject[] notGoods;
-    [SerializeField] private GameObject[] Special;
+    //[SerializeField] private GameObject[] Special;
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject player;
     [SerializeField] public float minAngle;
@@ -25,7 +29,7 @@ public class GoodSpawn : MonoBehaviour
     private int lastgoodsIndex = 0;
     private void Start()
     {
-      
+        goods = new GameObject[3][] { goods_1, goods_2, goods_3};
     }
 
 
@@ -42,7 +46,9 @@ public class GoodSpawn : MonoBehaviour
                 goodsIndex = Random.Range(0, goods.Length);
             }
             lastgoodsIndex = goodsIndex;
-            currentGood = Instantiate(goods[goodsIndex], spawnPoint.transform.position, Quaternion.identity);
+
+            currentGood = Instantiate(goods[goodsIndex][Random.Range(0, goods[goodsIndex].Length)], spawnPoint.transform.position, Quaternion.identity);
+
             isCurrentNotGood = false;
         }
         else
@@ -50,7 +56,12 @@ public class GoodSpawn : MonoBehaviour
             if (Random.Range(0f, 1f) > wrongGoodPercentage ? true : false)
             {
                 int goodsIndex = Random.Range(0, goods.Length);
-                currentGood = Instantiate(goods[goodsIndex], spawnPoint.transform.position, Quaternion.identity);
+                while (lastgoodsIndex == goodsIndex)
+                {
+                    goodsIndex = Random.Range(0, goods.Length);
+                }
+                lastgoodsIndex = goodsIndex;
+                currentGood = Instantiate(goods[goodsIndex][Random.Range(0, goods[goodsIndex].Length)], spawnPoint.transform.position, Quaternion.identity);
                 isCurrentNotGood = false;
 
             }

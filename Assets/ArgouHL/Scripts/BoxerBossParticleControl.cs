@@ -31,6 +31,8 @@ public class BoxerBossParticleControl : MonoBehaviour
         for (int i = 0; i < attackEffects.Length; i++)
         {
             attackEffects[i].Play();
+            var main = attackEffects[i].main;
+            main.simulationSpace = ParticleSystemSimulationSpace.Local;
         }
     }
 
@@ -40,10 +42,13 @@ public class BoxerBossParticleControl : MonoBehaviour
         for (int i = 0; i < attackEffects.Length; i++)
         {
             attackEffects[i].Stop();
+            var main = attackEffects[i].main;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
         }
         for (int i = 0; i < attackEffects_2.Length; i++)
         {
             attackEffects_2[i].Stop();
+            
         }
 
     }
