@@ -36,7 +36,7 @@ public class GoodSpawn : MonoBehaviour
     public void spawnGood()
     {
         
-        print("spawnGood");
+        //print("spawnGood");
         distanceToPlayer = spawnPoint.transform.position.z - player.transform.position.z;
         if (isCurrentNotGood)
         {
@@ -98,7 +98,7 @@ public class GoodSpawn : MonoBehaviour
 
 
         throwGoodsBossController.nextThrowTime = distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * inputAngle) * Speed(inputAngle)) - distanceToPlayer / (Mathf.Cos(Mathf.Deg2Rad * minAngle) * Speed(minAngle));
-        print("s" + throwGoodsBossController.nextThrowTime);
+        //print("s" + throwGoodsBossController.nextThrowTime);
 
     }
 

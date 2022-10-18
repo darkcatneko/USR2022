@@ -166,7 +166,7 @@ public class BossActController_B : MonoBehaviour
 
     public void stopstunned()
     {
-        taphint(0, "11223");
+        taphint(0, "");
         isStunned = false;
         bossAction.StopAttack();
         nextBossStage = 2;

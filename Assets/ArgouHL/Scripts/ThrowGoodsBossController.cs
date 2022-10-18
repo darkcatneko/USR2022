@@ -51,7 +51,7 @@ public class ThrowGoodsBossController : MonoBehaviour
         goodSpawn.highAnglePercentage = stage1HighPercentage;
         goodSpawn.wrongGoodPercentage = stage1WrongGoodPercentage;
         animatorSpeed = 1f;
-        StartCoroutine("ThrowGoodsLoop");
+        
         StartCoroutine("GameStart");
 
     }
@@ -60,6 +60,7 @@ public class ThrowGoodsBossController : MonoBehaviour
 
     private IEnumerator GameStart()
     {
+        StartCoroutine("ThrowGoodsLoop");
         while (gameTime > timeToStage2)
         {
             gameTime-=Time.deltaTime;
@@ -94,6 +95,7 @@ public class ThrowGoodsBossController : MonoBehaviour
         }
 
         StopCoroutine("ThrowGoodsLoop");
+        GameEnd();
     }
 
 
@@ -120,7 +122,11 @@ public class ThrowGoodsBossController : MonoBehaviour
         }
     }
 
-
+    private void GameEnd()
+    {
+        gamestart = false;
+        Debug.Log("Time's Up");
+    }
 
 
 

@@ -7,13 +7,15 @@ public class BoxerBossParticleControl : MonoBehaviour
     [SerializeField] private ParticleSystem[] chargingEffects;
     [SerializeField] private ParticleSystem[] attackEffects;
     [SerializeField] private ParticleSystem[] attackEffects_2;
+    [SerializeField] private ParticleSystem[] hitEffects;
     [SerializeField] private ParticleSystem[] guardEffects;
 
-    public void charging()
+    public void Charging()
     {
         for(int i =0; i < chargingEffects.Length; i++)
         {
-            chargingEffects[i].Play(); 
+            chargingEffects[i].Play();
+           
         }
 
         for (int i = 0; i < attackEffects_2.Length; i++)
@@ -22,12 +24,19 @@ public class BoxerBossParticleControl : MonoBehaviour
         }
     }
 
-    public void attacking()
+    public void StopCharging()
     {
         for (int i = 0; i < chargingEffects.Length; i++)
         {
             chargingEffects[i].Stop();
+
         }
+    }
+
+
+    public void Attacking()
+    {
+        
         for (int i = 0; i < attackEffects.Length; i++)
         {
             attackEffects[i].Play();
@@ -37,7 +46,7 @@ public class BoxerBossParticleControl : MonoBehaviour
     }
 
 
-    public void attackEnd()
+    public void AttackEnd()
     {
         for (int i = 0; i < attackEffects.Length; i++)
         {
@@ -51,6 +60,14 @@ public class BoxerBossParticleControl : MonoBehaviour
             
         }
 
+    }
+
+    public void Hitted()
+    {
+        for (int i = 0; i < hitEffects.Length; i++)
+        {
+            hitEffects[i].Play();
+        }
     }
 
     public void Guarded()
