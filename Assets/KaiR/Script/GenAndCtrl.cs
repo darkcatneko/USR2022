@@ -8,6 +8,8 @@ using System;
 
 public class GenAndCtrl : MonoBehaviour
 {
+    [SerializeField] SprintTimer sprintTimer;
+    [SerializeField] SprintGameController sprintGameController;
     [SerializeField] GameObject LvStartPoint, GameCanvas, FastTapCanvas;
     [SerializeField] Button ClearBtn, ForwardBtn;
     [SerializeField] CameraAnimationController CameraAnimCtrler;
@@ -22,6 +24,8 @@ public class GenAndCtrl : MonoBehaviour
     float MoveSpeed = 10f;
     public int LvProgress = -1;
     bool CanOpenBox2 = false;
+    bool CanMove = true;
+    Coroutine moveIE;
 
     int Choose(float[] probs)
     {
@@ -66,12 +70,15 @@ public class GenAndCtrl : MonoBehaviour
         {
             if (SpawnCount == 0)
             {
-                LvObjs.Add(Instantiate(GenObj, LvStartPoint.transform.position, LvStartPoint.transform.rotation));
+                GameObject genObj = Instantiate(GenObj, LvStartPoint.transform.position, LvStartPoint.transform.rotation);
+
+                LvObjs.Add(genObj);
             }
             else
             {
-                LvObjs.Add(Instantiate(GenObj, LvObjs[LvObjs.Count - 1].transform.position + GapVector,
-                                               LvObjs[LvObjs.Count - 1].transform.rotation));
+                GameObject genObj = Instantiate(GenObj, LvObjs[LvObjs.Count - 1].transform.position + GapVector,
+                                                LvObjs[LvObjs.Count - 1].transform.rotation);
+                LvObjs.Add(genObj);
             }
             SpawnCount++;
         }
@@ -98,19 +105,22 @@ public class GenAndCtrl : MonoBehaviour
         switch (LvObjs[LvProgress].tag)
         {
             case "Enemy":
-                LvObjs[LvProgress].SetActive(false);
+                LvObjs[LvProgress].GetComponent<Animator>().SetTrigger("Die");
+                LvObjs[LvProgress].tag = "NoneObj";
+                CanMove = true;
                 break;
             case "Box1":
-                LvObjs[LvProgress].SetActive(false);
+                LvObjs[LvProgress].GetComponentInChildren<Animator>().SetTrigger("Open");
+                LvObjs[LvProgress].tag = "NoneObj";
                 break;
             case "Box2":
                 if (CanOpenBox2)
                 {
-                    LvObjs[LvProgress].SetActive(false);
+                    LvObjs[LvProgress].GetComponentInChildren<Animator>().SetTrigger("Open");
+                    LvObjs[LvProgress].tag = "NoneObj";
                 }
                 else
                 {
-                    LvObjs[LvProgress].transform.Find("Box").Find("Lock").gameObject.SetActive(false);
                     CanOpenBox2 = true;
                 }
                 break;
@@ -122,10 +132,13 @@ public class GenAndCtrl : MonoBehaviour
 
     public void ForwardBtn_Click()
     {
-        if (!LvObjs[LvProgress].activeSelf || LvObjs[LvProgress].tag != "Enemy")
+        if (CanMove || LvObjs[LvProgress].tag != "Enemy")
         {
             CanOpenBox2 = false;
-            StartCoroutine("Move");
+            if (moveIE == null)
+            {
+                moveIE = StartCoroutine("Move");
+            }
         }
         else
         {
@@ -139,6 +152,12 @@ public class GenAndCtrl : MonoBehaviour
         LvProgress++;
         ClearBtn.interactable = false;
         ForwardBtn.interactable = false;
+        if (LvProgress == LvObjs.Count - 1)
+        {
+            sprintTimer.enabled = false;
+            sprintGameController.enabled = false;
+            GameCanvas.SetActive(false);
+        }
         while (transform.position.z < LvObjs[LvProgress].transform.position.z - 2)
         {
             transform.position = new Vector3(transform.position.x,
@@ -149,9 +168,14 @@ public class GenAndCtrl : MonoBehaviour
             yield return null;
         }
         CameraAnimCtrler.Is_Walking = false;
+
+        if (LvObjs[LvProgress].tag == "Enemy")
+        {
+            CanMove = false;
+        }
+
         if (LvProgress == LvObjs.Count - 1)
         {
-            GameCanvas.SetActive(false);
             FastTapCanvas.SetActive(true);
         }
         else
@@ -159,5 +183,7 @@ public class GenAndCtrl : MonoBehaviour
             ClearBtn.interactable = true;
             ForwardBtn.interactable = true;
         }
+
+        moveIE = null;
     }
 }

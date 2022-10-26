@@ -25,14 +25,14 @@ public class BossActController : MonoBehaviour
     [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damageToPlayer;
     [SerializeField] private UnityEvent guardSuccessed;
-    [SerializeField] private UnityEvent guardDetermindUIShow;
-    [SerializeField] private UnityEvent guardDetermindUIDisapper;
+    
     [SerializeField] private UnityEvent attackTimeUIShow;
     [SerializeField] private UnityEvent attackTimeUIDisapper;
-    [SerializeField] private Button guardButton;
-    [SerializeField] private Button attackButton;
 
+    [SerializeField] private Button attackButton;
+    [SerializeField] private UnityEvent guard;
     [SerializeField] private PlayerActController playerActController;
+    [SerializeField] private BoxerGameControl boxerGameControl;
 
 
     [Header("Boss Stage Setting")]
@@ -120,15 +120,20 @@ public class BossActController : MonoBehaviour
                 AttackAgain();
             }
         }
-        guardDetermindUIDisapper.Invoke();
+        //guardDetermindUIDisapper.Invoke();
     }
 
     public void AttackAgain()
     {
+        
         print("attackagain");
-        gettedDamage = 0;
         bossStage = nextBossStage;
         nextBossStage = 1;
+
+        if (boxerGameControl.gameEnd)
+        {
+            nextBossStage = 0;
+        }
         bossAction = gameObject.AddComponent<BossTestBackward>();
     }
 
@@ -137,7 +142,8 @@ public class BossActController : MonoBehaviour
     public void NextMove()
     {
         NextStage();
-
+        if (boxerGameControl.gameEnd && bossStage == 0 || boxerGameControl.gameEnd && bossStage == 3)
+            return;
         if (nextBossStage == 0)//待機
         {
             attackedTimes = 0;
@@ -148,7 +154,7 @@ public class BossActController : MonoBehaviour
         }
         else if (nextBossStage == 1)//攻擊
         {
-            guardDetermindUIShow.Invoke();
+            //guardDetermindUIShow.Invoke();
             bossStage = nextBossStage;
             nextBossStage = 2;
             bossAction = gameObject.AddComponent<BossTestAttack>();
@@ -200,6 +206,9 @@ public class BossActController : MonoBehaviour
 
     public void StopStunned()
     {
+        if (boxerGameControl.gameEnd)
+            return;
+
         attackTimeUIDisapper.Invoke();
         TapHint(0, "");
         isStunned = false;
@@ -247,19 +256,25 @@ public class BossActController : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (boxerGameControl.gameEnd)
+                return;
 
         if (context.started)//MouseDown
         {
+            
+
             if (bossStage == 1)
             {
-                guardButton.onClick.Invoke();
-                SimulateClick(guardButton);
+                guard.Invoke();
+                Debug.Log("guard");
 
             }
             else if (bossStage == 3)
             {
+                
                 attackButton.onClick.Invoke();
                 SimulateClick(attackButton);
+                Debug.Log("Atk");
             }
         }
 

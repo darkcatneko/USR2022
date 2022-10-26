@@ -14,7 +14,7 @@ public class GuardBarSystem : MonoBehaviour
     [SerializeField] private GameObject deterBar;
     [SerializeField] private BossActController bossActController;
 
-    [SerializeField] TMP_Text hints;
+
    
     
     private RectTransform Rect;
@@ -36,19 +36,7 @@ public class GuardBarSystem : MonoBehaviour
     public void guarded()
     {
         StopCoroutine("guardDetermine");
-        if(isGuardsuccessd)
-        {
-            hints.text = "Success";
-            
-
-        }
-        else
-        {
-            hints.text = "Fail";
-            
-        }
-        
-
+       
     }
 
     public void startGuardDeter()
@@ -75,7 +63,7 @@ public class GuardBarSystem : MonoBehaviour
 
         GuardUI.alpha = 1;
         
-        hints.text = "Tap to Guard!!!";
+        //hints.text = "Tap to Guard!!!";
         
         
         float time = 0;
@@ -99,7 +87,7 @@ public class GuardBarSystem : MonoBehaviour
             yield return null;
         }
         isGuardsuccessd = false;
-        hints.text = "Fail";
+        
         yield return new WaitForSeconds(0.4f);
         guardUIFade();
        

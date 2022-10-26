@@ -12,14 +12,26 @@ public class GoodsMovement : MonoBehaviour
     
     private float gravity;
     private float angle;
+    
+   [SerializeField] private float _animotionSpeed;
+
+    public void Start()
+    {
+        
+    }
+
+
 
     public void StartMove(float _angle, float _speed, float _gravity)
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        _animotionSpeed = boss.GetComponent<ThrowGoodsBossController>().animatorSpeed;
+
         angle = _angle;
         speed = _speed;
         gravity = _gravity;
-        player = GameObject.FindGameObjectWithTag("Player");
-        boss =  GameObject.FindGameObjectWithTag("Boss");
+        
         
         orgPos = transform.position;
         
@@ -29,25 +41,15 @@ public class GoodsMovement : MonoBehaviour
 
     private IEnumerator Throwed()
     {
-        yield return new WaitForSeconds(19f * 1f / 24f);
+        
+
+        yield return new WaitForSeconds(20f * 1f / 24f / _animotionSpeed);
+        
         float time = 0;
-        float duration = 4f*1f/60f;
-        //while (time < duration)
-        //{
-        //    transform.position = Vector3.Lerp(orgPos, new Vector3(orgPos.x, orgPos.y+0.3f, orgPos.z-0.3f), time / duration);
 
-        //    time += Time.deltaTime;
-        //    yield return null;
-        //}
-
-
-
+        
         orgPos = transform.position;
         
-        
-
-
-        time = 0;
         while (transform.position.y>=0)
         {
             time += Time.deltaTime;

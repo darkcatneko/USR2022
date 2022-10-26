@@ -12,13 +12,14 @@ public abstract class BossActionClass: MonoBehaviour
     //把controller設定為Parent
     public BossActController parent;
     public Renderer handRender;
+    public GameObject player;
 
     //所有action載入(開始)時都會呼叫一次
     protected virtual void Start()
     {
 
         //把controller設定為Parent
-        
+        player = GameObject.FindGameObjectWithTag("Player");
         parent = GetComponent<BossActController>();
         boxerBossParticleControl = parent.GetComponent<BoxerBossParticleControl>();
         //handRender = GameObject.Find("hand").GetComponent<Renderer>();
