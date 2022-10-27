@@ -65,6 +65,10 @@ public class GoodsMovement : MonoBehaviour
         StopCoroutine("Throwed");
     }
 
-
+    public void Catched()
+    {
+        Destroy(this.gameObject.GetComponent<GoodsMovement>());
+        StopCoroutine("Throwed");
+    }
 
 }

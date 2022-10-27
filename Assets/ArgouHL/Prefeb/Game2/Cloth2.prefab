@@ -9,7 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8098218794469212271}
-  m_Layer: 0
+  - component: {fileID: -4948075663715729903}
+  - component: {fileID: 1436455289186637668}
+  - component: {fileID: -2745133743038003146}
+  m_Layer: 8
   m_Name: Cloth2
   m_TagString: Cloth
   m_Icon: {fileID: 0}
@@ -23,15 +26,55 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4917932064069041517}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.12868012, y: -0.2656029, z: -0.10179908, w: 0.95001763}
+  m_LocalPosition: {x: -0.0016494637, y: 0.0010426374, z: 0.00044205776}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 709569982629917442}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.977, y: -32.735, z: -15.465}
+--- !u!114 &-4948075663715729903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917932064069041517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2cde44261eda444e9fcc21c00c2ae95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goodsType: 0
+--- !u!64 &1436455289186637668
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917932064069041517}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!135 &-2745133743038003146
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917932064069041517}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1031992125095597289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86,6 +129,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 34b3194d0ddca9948acafbd5ab2485ee, type: 3}
       propertyPath: m_Name
       value: Cloth02
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 34b3194d0ddca9948acafbd5ab2485ee, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34b3194d0ddca9948acafbd5ab2485ee, type: 3}

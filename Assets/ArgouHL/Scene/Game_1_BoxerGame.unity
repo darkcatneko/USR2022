@@ -23569,6 +23569,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 50f46fcd-f0c5-4d01-814e-9378a11de832
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2ed7edb5-0678-4f00-8ca7-19104aad0988
+    m_ActionName: Touch/PrimaryContact
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5181fb09-b969-4bb1-af27-c0fc47bab83f
+    m_ActionName: Touch/PrimaryPosition
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
