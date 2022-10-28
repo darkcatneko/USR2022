@@ -6,17 +6,33 @@ using UnityEngine.InputSystem;
 
 public class _PlayerActController : MonoBehaviour
 {
-    [SerializeField] _PlayerActionClass playerAction;
-    [SerializeField] _BossActController bossAct;
+    [SerializeField] PlayerActionClass playerAction;
+    [SerializeField] BossActController bossAct;
 
-    [SerializeField] private _HpControl hpControl;
+    [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damageToBoss;
     [SerializeField] public Animator playerHandsAnimator;
+
+    private _InputManager inputManager;
 
     public bool isDefenceing;
     bool isLeftOraOra;
 
     public bool showDebug = false;
+
+    private void Awake()
+    {
+        inputManager = _InputManager.Instance;
+    }
+    private void OnEnable()
+    {
+        inputManager.OnStartTouch += OnTouch;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OnStartTouch -= OnTouch;
+    }
 
     //給予傷害(透過UnityEvent去使用玩家obj上的傷害funtion)
     public void GiveDamageToBoss()
@@ -26,49 +42,44 @@ public class _PlayerActController : MonoBehaviour
 
     public void DefenceUp()
     {
-        if (!TryGetComponent<_PlayerDefenceUp>(out var _playerDefenceUp) && !TryGetComponent<_PlayerDefenceDown>(out var _PlayerDefenceDown)) 
+        if (!TryGetComponent<PlayerDefenceUp>(out var playerDefenceUp) && !TryGetComponent<PlayerDefenceDown>(out var PlayerDefenceDown))
         {
-            playerAction = gameObject.AddComponent<_PlayerDefenceUp>();
+            playerAction = gameObject.AddComponent<PlayerDefenceUp>();
         }
     }
     public void DefenceDown()
     {
-        if (TryGetComponent<_PlayerDefenceUp>(out var _playerDefenceUp)) 
+        if (TryGetComponent<PlayerDefenceUp>(out var playerDefenceUp))
         {
-            _playerDefenceUp.SkillFinish();
+            playerDefenceUp.SkillFinish();
         }
-        playerAction = gameObject.AddComponent<_PlayerDefenceDown>();
+        playerAction = gameObject.AddComponent<PlayerDefenceDown>();
     }
     public void Attack()
     {
         if (isLeftOraOra)
         {
-            playerAction = gameObject.AddComponent<_PlayerAttackLeft>();
+            playerAction = gameObject.AddComponent<PlayerAttackLeft>();
             isLeftOraOra = false;
         }
         else
         {
-            playerAction = gameObject.AddComponent<_PlayerAttackRight>();
+            playerAction = gameObject.AddComponent<PlayerAttackRight>();
             isLeftOraOra = true;
         }
     }
 
-    //左鍵執行
-    public void OnFire(InputAction.CallbackContext context)
+    public void OnTouch(Vector2 position, float time)
     {
-        if (context.started)//MouseDown
+        if (bossAct.bossStage == 0 || bossAct.bossStage == 1 || bossAct.bossStage == 2)
         {
-            if (bossAct.bossStage == 0 || bossAct.bossStage == 1 || bossAct.bossStage == 2)
-            {
-                DefenceUp();
-            }
-            else if (bossAct.bossStage == 3 || bossAct.bossStage == 4/*測試攻擊*/)
-            {
-                GiveDamageToBoss();
-                Attack();
-            }
+            DefenceUp();
         }
-        
+        else if (bossAct.bossStage == 3 || bossAct.bossStage == 4/*測試攻擊*/)
+        {
+            GiveDamageToBoss();
+            Attack();
+        }
     }
 
 }
