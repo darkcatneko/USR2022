@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class _PlayerDefenceUp : _PlayerActionClass
+public class _PlayerDefenceUp : PlayerActionClass
 {
     float defenceTime = .5f;
 
@@ -22,6 +22,7 @@ public class _PlayerDefenceUp : _PlayerActionClass
 
         parent.isDefenceing = true;
         parent.playerHandsAnimator.SetTrigger("handsUpTrigger");
+        parent.playerHandsAnimator.SetLayerWeight(parent.playerHandsAnimator.GetLayerIndex("Guard Layer"), 1f);
 
         yield return new WaitForSeconds(defenceTime);
 
