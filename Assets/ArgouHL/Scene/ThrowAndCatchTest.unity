@@ -3013,7 +3013,6 @@ MonoBehaviour:
   swipeDetection: {fileID: 238684654}
   gameDataCtr: {fileID: 1146797984}
   handAnimator: {fileID: 5451231107630534755}
-  holdingGoods: {fileID: 0}
   catchDistance: 0.75
   rotateSpeed: 1
 --- !u!114 &1274570392

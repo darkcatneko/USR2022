@@ -9,10 +9,17 @@ public class InputManager : Singleton<InputManager>
     public event StartTouch OnStartTouch;
     public delegate void EndTouch(Vector2 position, float time);
     public event EndTouch OnEndTouch;
+
+    public delegate void StartOneTouch();
+    public event StartOneTouch OneTouch;
+    
+
     #endregion
 
     private PlayerControls playerControls;
     private Camera swipeCamera;
+
+    
 
     private void Awake()
     {
@@ -44,8 +51,15 @@ public class InputManager : Singleton<InputManager>
 
     private void StartTouchPrimary(InputAction.CallbackContext context)
     {
-        if (OnStartTouch != null) OnStartTouch(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>(), (float)context.startTime);
+        if (OnStartTouch != null)
+            OnStartTouch(playerControls.Touch.PrimaryPosition.ReadValue<Vector2>(), (float)context.startTime);
+
+        if (OneTouch != null)
+            OneTouch();
+
     }
+
+
 
     private void EndTouchPrimary(InputAction.CallbackContext context)
     {

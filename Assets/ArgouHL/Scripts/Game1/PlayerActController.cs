@@ -12,11 +12,27 @@ public class PlayerActController : MonoBehaviour
     [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damageToBoss;
     [SerializeField] public Animator playerHandsAnimator;
+    private InputManager inputManager;
 
     public bool isDefenceing;
     bool isLeftOraOra;
-
+    
     public bool showDebug = false;
+
+    private void Awake()
+    {
+        inputManager = InputManager.Instance;
+    }
+
+    private void OnEnable()
+    {
+        inputManager.OneTouch += Touch;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OneTouch -= Touch;
+    }
 
     //給予傷害(透過UnityEvent去使用玩家obj上的傷害funtion)
     public void GiveDamageToBoss()
@@ -53,11 +69,12 @@ public class PlayerActController : MonoBehaviour
         }
     }
 
+ 
+
     //左鍵執行
-    public void OnFire(InputAction.CallbackContext context)
+    public void Touch()
     {
-        if (context.started)//MouseDown
-        {
+        
             if (bossAct.bossStage == 0 || bossAct.bossStage == 1 || bossAct.bossStage == 2)
             {
                 DefenceUp();
@@ -67,7 +84,7 @@ public class PlayerActController : MonoBehaviour
                 GiveDamageToBoss();
                 Attack();
             }
-        }
+        
         
     }
 
