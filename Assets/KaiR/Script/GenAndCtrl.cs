@@ -16,10 +16,12 @@ public class GenAndCtrl : MonoBehaviour
     [SerializeField] GameObject[] PrefabLvObjs = new GameObject[4];
     [SerializeField] GameObject[] LastEnemys = new GameObject[3];
     [SerializeField] List<DifficultyGroup_ScriptableObj> DifficultyGroups = new List<DifficultyGroup_ScriptableObj>();
+    [SerializeField] List<GameObject> StreetList = new List<GameObject>();
     [SerializeField] int SpawnSum;
+    [SerializeField] Vector3 GapVector;
+    [SerializeField] Vector3 StreetGapVector;
 
     List<GameObject> LvObjs = new List<GameObject>();
-    Vector3 GapVector = new Vector3(0, 0, 3);
     int SpawnCount = 0;
     float MoveSpeed = 10f;
     public int LvProgress = -1;
@@ -86,6 +88,14 @@ public class GenAndCtrl : MonoBehaviour
         {
             SpawnLvObjs();
         }
+    }
+
+    void LoopStreet()
+    {
+        GameObject RearStreet = StreetList[0];
+        StreetList.RemoveAt(0);
+        RearStreet.transform.position = StreetList[StreetList.Count - 1].transform.position + StreetGapVector;
+        StreetList.Add(RearStreet);
     }
 
     void Start()
@@ -168,6 +178,11 @@ public class GenAndCtrl : MonoBehaviour
             yield return null;
         }
         CameraAnimCtrler.Is_Walking = false;
+
+        if (LvProgress != 0 && LvProgress % 10 == 0 && (float)LvProgress / SpawnSum < 0.8f)
+        {
+            LoopStreet();
+        }
 
         if (LvObjs[LvProgress].tag == "Enemy")
         {
