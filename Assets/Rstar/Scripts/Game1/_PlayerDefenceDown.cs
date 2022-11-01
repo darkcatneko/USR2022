@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class _PlayerDefenceDown : _PlayerActionClass
+public class _PlayerDefenceDown : PlayerActionClass
 {
     float downTime = .5f;
 
@@ -21,9 +21,25 @@ public class _PlayerDefenceDown : _PlayerActionClass
         float duration = downTime;
 
         parent.isDefenceing = false;
-        parent.playerHandsAnimator.SetTrigger("handsDownTrigger");
+        Animator animator = parent.playerHandsAnimator;
+        animator.SetTrigger("handsDownTrigger");
 
-        yield return new WaitForSeconds(downTime);
+
+        int layer = animator.GetLayerIndex("Guard Layer");
+        while (true)
+        {
+            if (animator.GetCurrentAnimatorClipInfo(layer)[0].clip.name == "hand_down_2" && animator.GetCurrentAnimatorStateInfo(layer).normalizedTime >= 1)
+            {
+                Debug.Log(animator.GetCurrentAnimatorClipInfo(layer)[0].clip.length);
+                duration -= animator.GetCurrentAnimatorClipInfo(layer)[0].clip.length;
+
+                animator.SetLayerWeight(layer, 0f);
+                break;
+            }
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(duration);
 
         SkillFinish();
     }

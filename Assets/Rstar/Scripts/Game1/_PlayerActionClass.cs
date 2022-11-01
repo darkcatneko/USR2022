@@ -5,14 +5,14 @@ using UnityEngine;
 public abstract class _PlayerActionClass : MonoBehaviour
 {
     //把controller設定為parent
-    public _PlayerActController parent;
+    public PlayerActController parent;
     public GameObject hand;
     //所有Action載入(開始)時都會呼叫一次
     protected virtual void Start()
     {
         //把controller設定為parent
         hand = GameObject.FindGameObjectWithTag("hand");
-        parent = GetComponent<_PlayerActController>();
+        parent = GetComponent<PlayerActController>();
 
 
         Action();
