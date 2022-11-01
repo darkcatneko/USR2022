@@ -6,12 +6,27 @@ public class DiceResult : MonoBehaviour
 {
 
     public DiceFaceUp[] diceFaceUps = new DiceFaceUp[4];
+    public DiceThrower diceThrower;
+    public DiceWinner diceWinner;
+    private int ResultNum = 0;
     public void Test()
     {
-        Debug.Log(ReadTheResult().resultEnum.ToString()+"   "+ ReadTheResult().PointGet.ToString());
+        
+        if (ReadTheResult()!=null)
+        {
+            Debug.Log(ReadTheResult().resultEnum.ToString() + "   " + ReadTheResult().PointGet.ToString());
+            diceWinner.Results[ResultNum] = ReadTheResult();
+            ResultNum++;
+        }
+        for (int i = 0; i < diceThrower.Dices.Length; i++)
+        {
+            diceThrower.Dices[i].gameObject.transform.position = diceThrower.DicesMoto[i];
+            diceThrower.Dices[i].GetComponent<Rigidbody>().useGravity = false;
+        }
     }
     public result ReadTheResult()
     {
+        
         int[] resultCab = new int[6];
         ResultEnum RE;
         int Combine = 0;
@@ -67,13 +82,14 @@ public class DiceResult : MonoBehaviour
         if (Combine == 2)
         {
             return new result(ResultEnum.Normal,(Biggest+1)*2 );
-        }
+        }        
         return new result(ResultEnum.NeedToReThrow, 0);
     }
+    
 }
 
 
-
+[System.Serializable]
 public class result
 {
     public ResultEnum resultEnum;
