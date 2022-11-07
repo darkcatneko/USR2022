@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerActionClass : MonoBehaviour
+public abstract class PlayerActionClass_A : MonoBehaviour
 {
     //把controller設定為parent
     public PlayerActController parent;
@@ -11,7 +11,7 @@ public abstract class PlayerActionClass : MonoBehaviour
     protected virtual void Start()
     {
         //把controller設定為parent
-        //hand = GameObject.FindGameObjectWithTag("hand");
+        hand = GameObject.Find("hand");
         parent = GetComponent<PlayerActController>();
 
 
