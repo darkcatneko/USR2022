@@ -9,6 +9,7 @@ public class BoxerBossParticleControl : MonoBehaviour
     [SerializeField] private ParticleSystem[] attackEffects_2;
     [SerializeField] private ParticleSystem[] hitEffects;
     [SerializeField] private ParticleSystem[] guardEffects;
+    [SerializeField] private GameObject getHitEffect;
 
     public void Charging()
     {
@@ -78,4 +79,11 @@ public class BoxerBossParticleControl : MonoBehaviour
         }
     }
 
+
+    public void GetHit()
+    {
+        print("AAA");
+        Instantiate(getHitEffect, new Vector3(Random.Range(-0.35f, 0.35f), Random.Range(0.9f, 1.5f), -2.6f), Quaternion.identity);
+        
+    }
 }

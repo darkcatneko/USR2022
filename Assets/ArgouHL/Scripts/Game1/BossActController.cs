@@ -10,9 +10,7 @@ using UnityEngine.UI;
 
 public class BossActController : MonoBehaviour
 {
-    //[SerializeField] public ParticleSystem charging_1;
-    //[SerializeField] public ParticleSystem charging_2;
-    //[SerializeField] public ParticleSystem attacking_1;
+    [SerializeField] public BoxerBossParticleControl boxerBossParticleControl;
     [SerializeField] public BossActionClass bossAction;
     [SerializeField] public Animator animator;
     // 0= 待機 , 1=攻擊 2=後退,3=暈
@@ -25,7 +23,7 @@ public class BossActController : MonoBehaviour
     [SerializeField] private HpControl hpControl;
     [SerializeField] private UnityEvent damageToPlayer;
     [SerializeField] private UnityEvent guardSuccessed;
-    
+
     [SerializeField] private UnityEvent attackTimeUIShow;
     [SerializeField] private UnityEvent attackTimeUIDisapper;
 
@@ -63,6 +61,9 @@ public class BossActController : MonoBehaviour
 
     public int canAttackTime;
 
+    private int hitPlayerCount = 0;
+
+    
 
     private void Start()
     {
@@ -72,7 +73,7 @@ public class BossActController : MonoBehaviour
         attackTimesBeforeBack = attackTimes_1;
 
         //第一個動作
-        bossAction = gameObject.AddComponent<BossIdle>();
+
     }
 
     private void Update()
@@ -85,6 +86,12 @@ public class BossActController : MonoBehaviour
         }
     }
 
+    public void FirstCombo()
+    {
+        bossAction = gameObject.AddComponent<BossIdle>();
+    }
+
+
     //給予傷害(透過UnityEvent去使用玩家obj上的傷害funtion)
     public void GiveDamageToPlayer()
     {
@@ -92,9 +99,9 @@ public class BossActController : MonoBehaviour
         if (playerActController.isDefenceing)
         {
             guardSuccessed.Invoke();
-            blockedTimes += 1;
+            blockedTimes++;
             playerActController.DefenceDown();
-            
+
             if (blockedTimes >= blockTimesBeforeStun)
             {
                 Stunned();
@@ -108,7 +115,8 @@ public class BossActController : MonoBehaviour
         }
         else
         {
-            attackedTimes += 1;
+            attackedTimes++;
+            hitPlayerCount++;
             damageToPlayer.Invoke();
 
             if (attackedTimes >= attackTimesBeforeBack)
@@ -125,12 +133,13 @@ public class BossActController : MonoBehaviour
 
     public void AttackAgain()
     {
-        
+
         print("attackagain");
+
         bossStage = nextBossStage;
         nextBossStage = 1;
 
-        if (boxerGameControl.gameEnd)
+        if (BoxerGameControl.gameEnd)
         {
             nextBossStage = 0;
         }
@@ -142,7 +151,7 @@ public class BossActController : MonoBehaviour
     public void NextMove()
     {
         NextStage();
-        if (boxerGameControl.gameEnd && bossStage == 0 || boxerGameControl.gameEnd && bossStage == 3)
+        if (BoxerGameControl.gameEnd && bossStage == 0 || BoxerGameControl.gameEnd && bossStage == 3)
             return;
         if (nextBossStage == 0)//待機
         {
@@ -206,7 +215,7 @@ public class BossActController : MonoBehaviour
 
     public void StopStunned()
     {
-        if (boxerGameControl.gameEnd)
+        if (BoxerGameControl.gameEnd)
             return;
 
         attackTimeUIDisapper.Invoke();
@@ -238,7 +247,10 @@ public class BossActController : MonoBehaviour
 
     public void GetDamage(int damage)
     {
+        animator.SetTrigger("hit");
+        boxerBossParticleControl.GetHit();
         gettedDamage += damage;
+
         if (gettedDamage >= maxGetDamage)
         {
             hpControl.getDamage(maxGetDamage - (gettedDamage - damage));
@@ -256,12 +268,12 @@ public class BossActController : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (boxerGameControl.gameEnd)
-                return;
+        if (BoxerGameControl.gameEnd)
+            return;
 
         if (context.started)//MouseDown
         {
-            
+
 
             if (bossStage == 1)
             {
@@ -271,7 +283,7 @@ public class BossActController : MonoBehaviour
             }
             else if (bossStage == 3)
             {
-                
+
                 attackButton.onClick.Invoke();
                 SimulateClick(attackButton);
                 Debug.Log("Atk");
@@ -285,9 +297,16 @@ public class BossActController : MonoBehaviour
         ExecuteEvents.Execute(button.gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
     }
 
+    public void BossDead()
+    {
+        animator.SetTrigger("dead");
+    }
 
-    
 
+    public int GetHitPlayerCount()
+    {
+        return hitPlayerCount;
+    }
 
 
 }

@@ -10,6 +10,7 @@ public class HpControl : MonoBehaviour
     [SerializeField] public int maxHp ;
     [SerializeField] public int nowHp ;
     [SerializeField] private UnityEvent gameEnd;
+    
 
 
     private void Start()
@@ -21,14 +22,16 @@ public class HpControl : MonoBehaviour
     //可以給其他UnityEvent呼叫
     public void getDamage(int x)
     {
-        if (nowHp <= 0)
+        if (BoxerGameControl.gameEnd)
             return;
-
         nowHp -= x;
         
         if(nowHp<=0)
         {
+            
+            
             gameEnd.Invoke();
+
         }
     }
 

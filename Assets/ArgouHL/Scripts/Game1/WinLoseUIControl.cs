@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class WinLoseUIControl : MonoBehaviour
+{
+    [SerializeField] private CanvasGroup winUI;
+    [SerializeField] private CanvasGroup loseUI;
+    [SerializeField] private TMP_Text failCountText;
+
+    public void ShowWinUI(int failCount)
+    {
+        failCountText.text = failCount.ToString();
+        winUI.blocksRaycasts = true;
+        winUI.interactable = true;
+        StartCoroutine("WinUIFade");
+    }
+
+    private IEnumerator WinUIFade( )
+    {
+        float time = 0;
+        float duration = 2;
+        while ( time<duration)
+        {
+            winUI.alpha = Mathf.Lerp(0, 1, time / duration);
+            time += Time.deltaTime;
+            yield return null; 
+        }
+        winUI.alpha = 1;
+    }
+
+    public void ShowLoseUI()
+    {
+        
+        loseUI.blocksRaycasts = true;
+        loseUI.interactable = true;
+        StartCoroutine("LoseUIFade");
+    }
+
+    private IEnumerator LoseUIFade()
+    {
+        float time = 0;
+        float duration = 2;
+        while (time < duration)
+        {
+            loseUI.alpha = Mathf.Lerp(0, 1, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        loseUI.alpha = 1;
+    }
+
+
+    public void BackHome()
+    {
+        print("BackHome");
+    }
+
+    public void PlayAgain()
+    {
+        print("PlayAgain");
+    }
+}
