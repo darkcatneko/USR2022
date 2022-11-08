@@ -7,10 +7,12 @@ using UnityEngine.UI;
 
 public class ThrowGoodsBossController : MonoBehaviour
 {
+    [SerializeField] private GameDataCtr gameDataCtr;
     [SerializeField] public Animator bossAnimator;
     [SerializeField] private UnityEvent throwGoodsEvents;
     [SerializeField] public UnityEvent spawnGoodsEvents;
-    
+    [SerializeField] public UnityEvent gameEnd;
+
     [SerializeField] private Slider timeBar;
     [SerializeField] private float gameTime;
     [SerializeField] private GoodSpawn goodSpawn;
@@ -52,13 +54,18 @@ public class ThrowGoodsBossController : MonoBehaviour
         goodSpawn.wrongGoodPercentage = stage1WrongGoodPercentage;
         animatorSpeed = 1f;
         
-        StartCoroutine("GameStart");
+     
 
     }
 
-    
+    public void GameStart()
+    {
+        StartCoroutine("GameStartIEnumerator");
+    }
 
-    private IEnumerator GameStart()
+
+
+    private IEnumerator GameStartIEnumerator()
     {
         StartCoroutine("ThrowGoodsLoop");
         while (gameTime > timeToStage2)
@@ -124,8 +131,12 @@ public class ThrowGoodsBossController : MonoBehaviour
 
     private void GameEnd()
     {
+       
         gamestart = false;
+        gameDataCtr.Save();
+        gameEnd.Invoke();
         Debug.Log("Time's Up");
+
     }
 
 

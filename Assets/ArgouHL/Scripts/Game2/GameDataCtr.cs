@@ -5,17 +5,15 @@ using TMPro;
 
 public class GameDataCtr : MonoBehaviour
 {
-    [SerializeField] PlayerData playerData;
-    [SerializeField] TMP_Text PlayerMoneyUI;
-    [SerializeField] private int playerMoney = 0;
+    [SerializeField] private PlayerData playerData;
+    [SerializeField] private TMP_Text PlayerMoneyUI;
+    [SerializeField] public int playerMoney = 0;
     // Start is called before the first frame update
     private void Start()
     {
+        playerMoney = 0;
         Load();
         PlayerMoneyUpdate();
-
-
-
     }
 
     private void PlayerMoneyUpdate()
@@ -29,20 +27,23 @@ public class GameDataCtr : MonoBehaviour
         PlayerMoneyUpdate();
     }
 
-
-
-    public void Save()
-    {
-        playerData.ThisPlayer.GetMoney(playerMoney);
-        playerData.Save();
-        playerMoney = 0;
-    }
-
     public void Load()
     {
         playerData.Load();
         print(playerData.ThisPlayer.Player_Money);
     }
+
+    public void Save()
+    {
+        Debug.Log(playerMoney);
+        playerData.ThisPlayer.GetMoney(playerMoney);
+        Debug.Log("AC:"+playerData.ThisPlayer.Player_Money);
+        playerData.Save();
+        
+        
+    }
+
+   
 
 
 

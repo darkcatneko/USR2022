@@ -8,10 +8,13 @@ public class EntryUI : MonoBehaviour
 {
     [SerializeField] private Button gameStartBtn;
     [SerializeField] private CanvasGroup gameStartUI;
+    [SerializeField] private CanvasGroup gameStartText;
     [SerializeField] private UnityEvent gameStart;
     private void Start()
     {
-        Invoke("CanStart", 2);
+        StartCoroutine("InFade");
+        Invoke("CanStart", 5);
+
     }
 
     public void GameStart()
@@ -30,9 +33,9 @@ public class EntryUI : MonoBehaviour
 
     private IEnumerator StartFade()
     {
-        
+            
         float time = 0;
-        float duration = 2;
+        float duration = 1;
         while(time<duration)
         {
             gameStartUI.alpha = Mathf.Lerp(1, 0, time / duration);
@@ -45,5 +48,20 @@ public class EntryUI : MonoBehaviour
         gameStartUI.blocksRaycasts = false;
         gameStart.Invoke();
     }
+
+    private IEnumerator InFade()
+    {
+        yield return new WaitForSeconds(1);
+        float time = 0;
+        float duration = 2;
+        while (time < duration)
+        {
+            gameStartText.alpha = Mathf.Lerp(0, 1, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+    }
+
 
 }

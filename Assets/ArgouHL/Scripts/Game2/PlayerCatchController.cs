@@ -44,14 +44,17 @@ public class PlayerCatchController : MonoBehaviour
         if (lookAtGoods != null && Vector3.Distance(lookAtGoods.transform.position, Camera.main.transform.position) <= catchDistance)   //如果看著貨物又離手很近則接住貨物
         {
 
-            handAnimator.transform.rotation = Quaternion.Euler(-120, 0, 0);
+           
             StopCoroutine("RotateHand");
+            
             holdingGoods = lookAtGoods;
             holdingGoods.GetComponent<GoodsMovement>().Catched();
             holdingGoods.transform.position = catchPoint.transform.position;
             holdingGoods.transform.parent = catchPoint;
+            handAnimator.gameObject.transform.localRotation = Quaternion.Euler(-120, 0, 0);
             handAnimator.SetTrigger("catch");
-           
+            
+
         }
 
         if (holdingGoods != null) //如果拿著貨物則判斷滑動方向
@@ -126,7 +129,7 @@ public class PlayerCatchController : MonoBehaviour
 
     private IEnumerator RotateHand(float rotateSpeed)
     {
-        
+        handAnimator.gameObject.transform.rotation = Quaternion.Euler(-120, 0, 0);
         int frame = 0;
         while (frame <= 15) 
         {
