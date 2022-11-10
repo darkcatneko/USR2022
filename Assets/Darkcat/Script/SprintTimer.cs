@@ -16,9 +16,12 @@ public class SprintTimer : MonoBehaviour
 
    
     void Update()
-    {
-        InputTimerSlide.value = InputTimer;
-        InputTimerUpdater();
+    {     
+        if (LevelController.Game_State == SprintGameState.Free)
+        {
+            InputTimerSlide.value = InputTimer;
+            InputTimerUpdater();
+        }
     }
    public void InputTimerUpdater()
    {

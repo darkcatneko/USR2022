@@ -23,9 +23,12 @@ public class SprintGameController : MonoBehaviour
     }
     private void Update()
     {
-        TimerUpdate();
-        PlayerHealthBar.fillAmount = PlayerHealth/150f;
-        PointerMovement(LevelSystem.LvProgress);
+        if (LevelSystem.Game_State == SprintGameState.Free)
+        {
+            TimerUpdate();
+            PlayerHealthBar.fillAmount = PlayerHealth / 150f;
+            PointerMovement(LevelSystem.LvProgress);
+        }        
     }
     public void MinusHealth()
     {
@@ -34,6 +37,7 @@ public class SprintGameController : MonoBehaviour
         if (PlayerHealth-10f==0)
         {
             Debug.Log("YouLose");//等日後新增輸掉事件
+            LevelSystem.LoseGame();
         }
     }
     public void TimerUpdate()
@@ -42,6 +46,7 @@ public class SprintGameController : MonoBehaviour
         if (PlayerHealth <= 0)
         {
             Debug.Log("YouLose");//等日後新增輸掉事件
+            LevelSystem.LoseGame();
         }
     }
     public void Minustime()

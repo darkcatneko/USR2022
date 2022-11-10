@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using System;
-
+using TMPro;
+using DG.Tweening;
 public class GenAndCtrl : MonoBehaviour
 {
     [SerializeField] SprintTimer sprintTimer;
@@ -28,6 +29,58 @@ public class GenAndCtrl : MonoBehaviour
     bool CanOpenBox2 = false;
     bool CanMove = true;
     Coroutine moveIE;
+    #region 開始遊戲
+    public SprintGameState Game_State = SprintGameState.Ready;
+    [SerializeField] TextMeshProUGUI EnterText;
+    [SerializeField] Image BackGround;
+    [SerializeField] GameObject EnterCanvas;
+    public void EnterGame()
+    {
+        EnterText.DOFade(1f, 2.5f);
+    }
+    public IEnumerator EnterGameFade()
+    {
+        EnterText.DOFade(0f, 2.5f);
+        BackGround.DOFade(0f, 2.5f);
+        yield return new WaitForSeconds(2.5f);
+        EnterCanvas.SetActive(false);
+        Game_State = SprintGameState.Free;
+        SpawnLvObjs();
+        LvObjs.Add(LastEnemys[0]);
+        StartCoroutine("Move");
+    }
+    public void SkipText()
+    {
+        if (Game_State == SprintGameState.Ready)
+        {
+            StartCoroutine("EnterGameFade");
+        }
+    }
+    #endregion
+    #region 金錢管理
+    [SerializeField] PlayerData player;
+    [SerializeField] TextMeshProUGUI CoinText;
+    #endregion
+    #region 結束遊戲
+    [SerializeField] GameObject WinCanvas;
+    [SerializeField] TextMeshProUGUI WinCanvasCoinTXT;
+    [SerializeField] TextMeshProUGUI LoseCanvasCoinTXT;
+    [SerializeField] GameObject LoseCanvas;
+    public void LoseGame()
+    {
+        Game_State = SprintGameState.End;
+        LoseCanvas.SetActive(true);
+        LoseCanvasCoinTXT.text = player.ThisPlayer.Player_Money.ToString();
+        player.Save();
+    }
+    public void WinGame()
+    {
+        Game_State = SprintGameState.End;
+        WinCanvas.SetActive(true);
+        WinCanvasCoinTXT.text = player.ThisPlayer.Player_Money.ToString();
+        player.Save();
+    }
+    #endregion
 
     int Choose(float[] probs)
     {
@@ -100,60 +153,72 @@ public class GenAndCtrl : MonoBehaviour
 
     void Start()
     {
-        SpawnLvObjs();
-        LvObjs.Add(LastEnemys[0]);
-        StartCoroutine("Move");
+        EnterGame();
+        player.LoadTest();
     }
 
     void Update()
     {
-        
+        CoinText.text = player.ThisPlayer.Player_Money.ToString();
+        if (LvProgress == SpawnSum+1)
+        {
+            WinGame();
+        }
     }
 
     public void ClearBtn_Click()
     {
-        switch (LvObjs[LvProgress].tag)
+        if (Game_State == SprintGameState.Free)
         {
-            case "Enemy":
-                LvObjs[LvProgress].GetComponent<Animator>().SetTrigger("Die");
-                LvObjs[LvProgress].tag = "NoneObj";
-                CanMove = true;
-                break;
-            case "Box1":
-                LvObjs[LvProgress].GetComponentInChildren<Animator>().SetTrigger("Open");
-                LvObjs[LvProgress].tag = "NoneObj";
-                break;
-            case "Box2":
-                if (CanOpenBox2)
-                {
+            switch (LvObjs[LvProgress].tag)
+            {
+                case "Enemy":
+                    LvObjs[LvProgress].GetComponent<Animator>().SetTrigger("Die");
+                    LvObjs[LvProgress].tag = "NoneObj";
+                    CanMove = true;
+                    break;
+                case "Box1":
                     LvObjs[LvProgress].GetComponentInChildren<Animator>().SetTrigger("Open");
                     LvObjs[LvProgress].tag = "NoneObj";
-                }
-                else
-                {
-                    CanOpenBox2 = true;
-                }
-                break;
-            case "NoneObj":
-                SprintGameController.instance.MinusHealth();
-                break;
+                    player.ThisPlayer.GetMoney(1);
+                    break;
+                case "Box2":
+                    if (CanOpenBox2)
+                    {
+                        LvObjs[LvProgress].GetComponentInChildren<Animator>().SetTrigger("Open");
+                        LvObjs[LvProgress].tag = "NoneObj";
+                        player.ThisPlayer.GetMoney(2);
+                    }
+                    else
+                    {
+                        CanOpenBox2 = true;
+                    }
+                    break;
+                case "NoneObj":
+                    SprintGameController.instance.MinusHealth();
+                    break;
+            }
         }
+        
     }
 
     public void ForwardBtn_Click()
     {
-        if (CanMove || LvObjs[LvProgress].tag != "Enemy")
+        if (Game_State == SprintGameState.Free)
         {
-            CanOpenBox2 = false;
-            if (moveIE == null)
+            if (CanMove || LvObjs[LvProgress].tag != "Enemy")
             {
-                moveIE = StartCoroutine("Move");
+                CanOpenBox2 = false;
+                if (moveIE == null)
+                {
+                    moveIE = StartCoroutine("Move");
+                }
             }
-        }
-        else
-        {
-            SprintGameController.instance.MinusHealth();
-        }
+            else
+            {
+                SprintGameController.instance.MinusHealth();
+            }
+        }       
     }
 
     IEnumerator Move()
@@ -201,4 +266,11 @@ public class GenAndCtrl : MonoBehaviour
 
         moveIE = null;
     }
+}
+
+public enum SprintGameState
+{
+    Ready,
+    Free,
+    End,
 }
