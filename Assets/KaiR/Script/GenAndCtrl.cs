@@ -7,6 +7,7 @@ using Cinemachine;
 using System;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 public class GenAndCtrl : MonoBehaviour
 {
     [SerializeField] SprintTimer sprintTimer;
@@ -79,6 +80,14 @@ public class GenAndCtrl : MonoBehaviour
         WinCanvas.SetActive(true);
         WinCanvasCoinTXT.text = player.ThisPlayer.Player_Money.ToString();
         player.Save();
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void ToMain()
+    {
+        SceneManager.LoadScene(0);
     }
     #endregion
 

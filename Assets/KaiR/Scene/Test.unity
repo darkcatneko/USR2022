@@ -3304,7 +3304,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1436571516}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1028863431}
+        m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1436571516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3501,7 +3513,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1483537953}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1028863431}
+        m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1483537953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4505,7 +4529,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1736129560}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1028863431}
+        m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
+        m_MethodName: ToMain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1736129560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5563,7 +5599,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2127756172}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1028863431}
+        m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
+        m_MethodName: ToMain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2127756172
 MonoBehaviour:
   m_ObjectHideFlags: 0
