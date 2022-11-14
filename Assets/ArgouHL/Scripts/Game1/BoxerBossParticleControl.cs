@@ -12,7 +12,8 @@ public class BoxerBossParticleControl : MonoBehaviour
     [SerializeField] private ParticleSystem[] attackEffects_2L;
     [SerializeField] private ParticleSystem[] hitEffects;
     [SerializeField] private ParticleSystem[] guardEffects;
-    [SerializeField] private GameObject getHitEffect;
+    [SerializeField] private ParticleSystem[] getHitEffects;
+    private int getHitEffectCount=0;
 
     public void Charging()
     {
@@ -129,8 +130,14 @@ public class BoxerBossParticleControl : MonoBehaviour
 
     public void GetHit()
     {
-        print("AAA");
-        Instantiate(getHitEffect, new Vector3(Random.Range(-0.35f, 0.35f), Random.Range(0.9f, 1.5f), -2.6f), Quaternion.identity);
-        
+        if (getHitEffectCount == 0)
+            getHitEffectCount++;
+        else
+            getHitEffectCount = 0;
+
+        getHitEffects[getHitEffectCount].gameObject.transform.position = new Vector3(Random.Range(-0.35f, 0.35f), Random.Range(0.9f, 1.5f), -2.6f);
+        getHitEffects[getHitEffectCount].Play();
+
+
     }
 }
