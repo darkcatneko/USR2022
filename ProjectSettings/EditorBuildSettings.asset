@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Darkcat/Scene/DiceTest.unity
     guid: 89392f9d6c6d4dc4489f680d651b93bb
   - enabled: 1
-    path: Assets/KaiR/Scene/Test.unity
+    path: Assets/KaiR/Scene/Sprint.unity
     guid: f0657e7c4c858ca4b8698d3a0db59456
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 1fca467df0005ee4cab0e98ba853589d, type: 2}
