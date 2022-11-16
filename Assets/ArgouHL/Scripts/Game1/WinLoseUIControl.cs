@@ -33,7 +33,7 @@ public class WinLoseUIControl : MonoBehaviour
 
     public void ShowLoseUI()
     {
-        
+       
         loseUI.blocksRaycasts = true;
         loseUI.interactable = true;
         StartCoroutine("LoseUIFade");
@@ -41,7 +41,8 @@ public class WinLoseUIControl : MonoBehaviour
 
     private IEnumerator LoseUIFade()
     {
-        float time = 0;
+       
+       float time = 0;
         float duration = 2;
         while (time < duration)
         {

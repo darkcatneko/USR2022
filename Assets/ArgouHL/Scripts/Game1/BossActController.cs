@@ -62,7 +62,7 @@ public class BossActController : MonoBehaviour
     public int canAttackTime;
 
     private int hitPlayerCount = 0;
-
+    public float attackFactor = 1;
     
 
     private void Start()
@@ -163,10 +163,14 @@ public class BossActController : MonoBehaviour
         }
         else if (nextBossStage == 1)//攻擊
         {
+            attackFactor = Mathf.Abs(attackFactor - 1);
+            animator.SetFloat("AtkMod", attackFactor);
+            
             //guardDetermindUIShow.Invoke();
             bossStage = nextBossStage;
             nextBossStage = 2;
             bossAction = gameObject.AddComponent<BossTestAttack>();
+            
         }
         else if (nextBossStage == 2)//後退
         {

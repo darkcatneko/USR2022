@@ -7,34 +7,40 @@ using Cinemachine;
 using System;
 using TMPro;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
+
 public class GenAndCtrl : MonoBehaviour
 {
+    [SerializeField] SetEnemysAnim setEnemysAnim;
+    [SerializeField] Animator HandAnim;
     [SerializeField] SprintTimer sprintTimer;
     [SerializeField] SprintGameController sprintGameController;
-    [SerializeField] GameObject LvStartPoint, GameCanvas, FastTapCanvas;
+    [SerializeField] GameObject LvStartPoint, GameCanvas, FastTapCanvas, LastEnemy;
     [SerializeField] Button ClearBtn, ForwardBtn;
     [SerializeField] CameraAnimationController CameraAnimCtrler;
-    [SerializeField] GameObject[] PrefabLvObjs = new GameObject[4];
-    [SerializeField] GameObject[] LastEnemys = new GameObject[3];
     [SerializeField] List<DifficultyGroup_ScriptableObj> DifficultyGroups = new List<DifficultyGroup_ScriptableObj>();
     [SerializeField] List<GameObject> StreetList = new List<GameObject>();
-    [SerializeField] int SpawnSum;
+    [SerializeField] int SpawnSum, OraSum;
     [SerializeField] Vector3 GapVector;
     [SerializeField] Vector3 StreetGapVector;
 
     List<GameObject> LvObjs = new List<GameObject>();
-    int SpawnCount = 0;
+    int SpawnCount = 0, OraCount = 0;
     float MoveSpeed = 10f;
     public int LvProgress = -1;
     bool CanOpenBox2 = false;
     bool CanMove = true;
+    bool LeftAtk = true;
+    bool OraEnd = false;
     Coroutine moveIE;
+
     #region 開始遊戲
     public SprintGameState Game_State = SprintGameState.Ready;
     [SerializeField] TextMeshProUGUI EnterText;
     [SerializeField] Image BackGround;
     [SerializeField] GameObject EnterCanvas;
+
+    bool AlreadySkip = false;
+
     public void EnterGame()
     {
         EnterText.DOFade(1f, 2.5f);
@@ -46,14 +52,16 @@ public class GenAndCtrl : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         EnterCanvas.SetActive(false);
         Game_State = SprintGameState.Free;
-        SpawnLvObjs();
-        LvObjs.Add(LastEnemys[0]);
-        StartCoroutine("Move");
+        if (moveIE == null)
+        {
+            moveIE = StartCoroutine("Move");
+        }
     }
     public void SkipText()
     {
-        if (Game_State == SprintGameState.Ready)
+        if (Game_State == SprintGameState.Ready && !AlreadySkip)
         {
+            AlreadySkip = true;
             StartCoroutine("EnterGameFade");
         }
     }
@@ -80,14 +88,6 @@ public class GenAndCtrl : MonoBehaviour
         WinCanvas.SetActive(true);
         WinCanvasCoinTXT.text = player.ThisPlayer.Player_Money.ToString();
         player.Save();
-    }
-    public void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    public void ToMain()
-    {
-        SceneManager.LoadScene(0);
     }
     #endregion
 
@@ -160,43 +160,89 @@ public class GenAndCtrl : MonoBehaviour
         StreetList.Add(RearStreet);
     }
 
-    void Start()
+    public void OraLastEnemy()
     {
-        EnterGame();
-        player.LoadTest();
+        if (LeftAtk)
+        {
+            HandAnim.SetTrigger("AtkLeft");
+            LeftAtk = false;
+        }
+        else
+        {
+            HandAnim.SetTrigger("AtkRight");
+            LeftAtk = true;
+        }
+
+        OraCount++;
+        if (OraCount < OraSum)
+        {
+            setEnemysAnim.SetGetHit();
+        }
+        else if (!OraEnd)
+        {
+            OraEnd = true;
+            FastTapCanvas.SetActive(false);
+            setEnemysAnim.SetDie();
+            StartCoroutine("WaitOraEnd");
+        }
     }
 
-    void Update()
+    IEnumerator WaitOraEnd()
     {
+        yield return new WaitForSeconds(0.5f);
+        HandAnim.SetLayerWeight(HandAnim.GetLayerIndex("Guard"), 1f);
+        HandAnim.SetTrigger("HandsUp");
+        yield return new WaitForSeconds(0.5f);
+        WinGame();
+    }
+
+    void Start()
+    {
+        SpawnLvObjs();
+        LastEnemy.transform.position += GapVector * (SpawnSum + 10);
+        LvObjs.Add(LastEnemy);
+        EnterGame();
+        player.LoadTest();
         CoinText.text = player.ThisPlayer.Player_Money.ToString();
-        if (LvProgress == SpawnSum+1)
-        {
-            WinGame();
-        }
     }
 
     public void ClearBtn_Click()
     {
         if (Game_State == SprintGameState.Free)
         {
+            if (LeftAtk)
+            {
+                HandAnim.SetTrigger("AtkLeft");
+                LeftAtk = false;
+            }
+            else
+            {
+                HandAnim.SetTrigger("AtkRight");
+                LeftAtk = true;
+            }
             switch (LvObjs[LvProgress].tag)
             {
                 case "Enemy":
+                    PunchEvent.CanHit = true;
                     LvObjs[LvProgress].GetComponent<Animator>().SetTrigger("Die");
                     LvObjs[LvProgress].tag = "NoneObj";
                     CanMove = true;
                     break;
                 case "Box1":
+                    PunchEvent.CanHit = true;
                     LvObjs[LvProgress].GetComponentInChildren<Animator>().SetTrigger("Open");
                     LvObjs[LvProgress].tag = "NoneObj";
                     player.ThisPlayer.GetMoney(1);
+                    CoinText.text = player.ThisPlayer.Player_Money.ToString();
                     break;
                 case "Box2":
+                    PunchEvent.CanHit = true;
                     if (CanOpenBox2)
                     {
                         LvObjs[LvProgress].GetComponentInChildren<Animator>().SetTrigger("Open");
                         LvObjs[LvProgress].tag = "NoneObj";
                         player.ThisPlayer.GetMoney(2);
+                        CoinText.text = player.ThisPlayer.Player_Money.ToString();
                     }
                     else
                     {
@@ -204,6 +250,7 @@ public class GenAndCtrl : MonoBehaviour
                     }
                     break;
                 case "NoneObj":
+                    PunchEvent.CanHit = false;
                     SprintGameController.instance.MinusHealth();
                     break;
             }
@@ -215,7 +262,7 @@ public class GenAndCtrl : MonoBehaviour
     {
         if (Game_State == SprintGameState.Free)
         {
-            if (CanMove || LvObjs[LvProgress].tag != "Enemy")
+            if (CanMove)
             {
                 CanOpenBox2 = false;
                 if (moveIE == null)
@@ -242,21 +289,25 @@ public class GenAndCtrl : MonoBehaviour
             sprintGameController.enabled = false;
             GameCanvas.SetActive(false);
         }
-        while (transform.position.z < LvObjs[LvProgress].transform.position.z - 2)
+        while (transform.position.z < LvObjs[LvProgress].transform.position.z - 1.5f)
         {
             transform.position = new Vector3(transform.position.x,
                                              transform.position.y,
                                              Mathf.MoveTowards(transform.position.z,
-                                                               LvObjs[LvProgress].transform.position.z - 2,
+                                                               LvObjs[LvProgress].transform.position.z - 1.5f,
                                                                MoveSpeed * Time.deltaTime));
             yield return null;
         }
         CameraAnimCtrler.Is_Walking = false;
 
-        if (LvProgress != 0 && LvProgress % 10 == 0 && (float)LvProgress / SpawnSum < 0.8f)
+        if (LvProgress != 0 && LvProgress % 10 == 0)    //替代方案
         {
             LoopStreet();
         }
+        //if (LvProgress != 0 && LvProgress % 10 == 0 && (float)LvProgress / SpawnSum < 0.8f)
+        //{
+        //    LoopStreet();
+        //}
 
         if (LvObjs[LvProgress].tag == "Enemy")
         {
@@ -266,6 +317,7 @@ public class GenAndCtrl : MonoBehaviour
         if (LvProgress == LvObjs.Count - 1)
         {
             FastTapCanvas.SetActive(true);
+            PunchEvent.CanHit = true;
         }
         else
         {

@@ -29,7 +29,7 @@ public class GameDataCtr : MonoBehaviour
 
     public void Load()
     {
-        playerData.Load();
+        playerData.LoadTest();
         print(playerData.ThisPlayer.Player_Money);
     }
 
