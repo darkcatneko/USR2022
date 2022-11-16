@@ -300,10 +300,14 @@ public class GenAndCtrl : MonoBehaviour
         }
         CameraAnimCtrler.Is_Walking = false;
 
-        if (LvProgress != 0 && LvProgress % 10 == 0 && (float)LvProgress / SpawnSum < 0.8f)
+        if (LvProgress != 0 && LvProgress % 10 == 0)    //´À¥N¤è®×
         {
             LoopStreet();
         }
+        //if (LvProgress != 0 && LvProgress % 10 == 0 && (float)LvProgress / SpawnSum < 0.8f)
+        //{
+        //    LoopStreet();
+        //}
 
         if (LvObjs[LvProgress].tag == "Enemy")
         {
