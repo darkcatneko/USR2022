@@ -18,7 +18,8 @@ public class GameDataCtr : MonoBehaviour
 
     private void PlayerMoneyUpdate()
     {
-        PlayerMoneyUI.text = "Money : " + (playerMoney+playerData.ThisPlayer.Player_Money).ToString();
+        //PlayerMoneyUI.text = (playerMoney+playerData.ThisPlayer.Player_Money).ToString();
+        PlayerMoneyUI.text = playerMoney.ToString();
     }
 
     public void GetMoney(int addedMoney)

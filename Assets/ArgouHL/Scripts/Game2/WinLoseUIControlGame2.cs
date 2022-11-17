@@ -59,6 +59,7 @@ public class WinLoseUIControlGame2 : MonoBehaviour
 
     public void BackHome()
     {
+        SceneManager.LoadScene(0);
         print("BackHome");
     }
 
