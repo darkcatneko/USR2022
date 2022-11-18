@@ -47,8 +47,8 @@ public class DataCheckAndCtrl : MonoBehaviour
     void Start()
     {
         player.LoadTest();
-        player.ThisPlayer.GetMoney(1000);
-        player.Save();
+        //player.ThisPlayer.GetMoney(1000);
+        //player.Save();
         CashTxt.text = player.ThisPlayer.Player_Money.ToString();
     }
 }
