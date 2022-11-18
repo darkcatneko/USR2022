@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DiceFaceUp : MonoBehaviour
 {
@@ -9,6 +10,29 @@ public class DiceFaceUp : MonoBehaviour
     public bool CanRead = false;
     public Transform[] Sides = new Transform[6];
     public DiceEnum DR;
+    Coroutine WaitSelfStopIE;
+
+    [SerializeField] UnityEvent Stop;
+
+    IEnumerator WaitSelfStop()
+    {
+        while(m_rigidbody.velocity.magnitude >= 0.0005f)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        DR = CheckUpSide();
+        Stop.Invoke();
+        WaitSelfStopIE = null;
+    }
+
+    public void StartWaitSelfStop()
+    {
+        if(WaitSelfStopIE == null)
+        {
+            WaitSelfStopIE = StartCoroutine("WaitSelfStop");
+        }
+    }
+
     void Start()
     {
         m_rigidbody = this.GetComponent<Rigidbody>();
@@ -28,10 +52,9 @@ public class DiceFaceUp : MonoBehaviour
         }
         if (m_rigidbody.velocity.magnitude < 0.0005f && StartGame == true)
         {
-            DR = CheckUpSide();
             StartGame = false;
             CanRead = true;
-}
+        }
     }
     public DiceEnum CheckUpSide()
     {

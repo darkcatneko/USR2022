@@ -40,5 +40,6 @@ public class DiceWinner : MonoBehaviour
                 }
             }
         }
+        print("Winner is : " + BiggestWho);
     }
 }

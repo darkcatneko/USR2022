@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DiceResult : MonoBehaviour
 {
-
+    public GambleCtrl gambleCtrl;
     public DiceFaceUp[] diceFaceUps = new DiceFaceUp[4];
     public DiceThrower diceThrower;
     public DiceWinner diceWinner;
     private int ResultNum = 0;
+    private byte StopDiceCount = 0;
+
     public void Test()
     {
         
@@ -24,6 +26,38 @@ public class DiceResult : MonoBehaviour
             diceThrower.Dices[i].GetComponent<Rigidbody>().useGravity = false;
         }
     }
+
+    public void WaitDiceStop()
+    {
+        print("a");
+        StopDiceCount++;
+        if (StopDiceCount == diceFaceUps.Length)
+        {
+            StopDiceCount = 0;
+            switch (ReadTheResult().resultEnum)
+            {
+                case ResultEnum.NeedToReThrow:
+                    gambleCtrl.InvokeTurnStart();
+                    break;
+                case ResultEnum.FourSame:
+                    diceWinner.Results[ResultNum] = ReadTheResult();
+                    ResultNum++;
+                    gambleCtrl.InvokeTurnEnd();
+                    break;
+                case ResultEnum.Normal:
+                    diceWinner.Results[ResultNum] = ReadTheResult();
+                    ResultNum++;
+                    gambleCtrl.InvokeTurnEnd();
+                    break;
+                default:
+                    diceWinner.Results[ResultNum] = ReadTheResult();
+                    ResultNum++;
+                    gambleCtrl.InvokeTurnEnd();
+                    break;
+            }
+        }
+    }
+
     public result ReadTheResult()
     {
         
