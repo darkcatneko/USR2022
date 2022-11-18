@@ -17,7 +17,6 @@ public class GambleCtrl : MonoBehaviour
 
     [SerializeField] UnityEvent TurnStart, TurnEnd;
     
-   
     public void InvokeTurnStart()
     {
         print(gameObject.name);

@@ -21,6 +21,15 @@ public class DiceResult : MonoBehaviour
 
     bool AlreadySkip = false;
 
+    public void ResetResult()
+    {
+        ResultNum = 0;
+        foreach(TextMeshProUGUI txt in ResultText)
+        {
+            txt.text = "";
+        }
+    }
+
     public void EnterGame()
     {
         EnterText.DOFade(1f, 2.5f);

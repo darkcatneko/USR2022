@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DiceWinner : MonoBehaviour
 {
+    [SerializeField] UnityEvent Win, Lose;
+
     public result[] Results = new result[4];
 
     public void WhoIsTheWinner()
@@ -41,5 +44,13 @@ public class DiceWinner : MonoBehaviour
             }
         }
         print("Winner is : " + BiggestWho);
+        if (BiggestWho == 0)
+        {
+            Win.Invoke();
+        }
+        else
+        {
+            Lose.Invoke();
+        }
     }
 }

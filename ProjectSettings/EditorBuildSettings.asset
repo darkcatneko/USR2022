@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/ArgouHL/Scene/Game2_ThrowAndCatch.unity
     guid: 4bdafbe721d342445a4ca236557596c6
   - enabled: 1
-    path: Assets/Darkcat/Scene/DiceTest.unity
-    guid: 89392f9d6c6d4dc4489f680d651b93bb
+    path: Assets/KaiR/Scene/Gamble.unity
+    guid: e55087c1f5d1da7419210e16baede3f9
   - enabled: 1
     path: Assets/KaiR/Scene/Sprint.unity
     guid: f0657e7c4c858ca4b8698d3a0db59456
