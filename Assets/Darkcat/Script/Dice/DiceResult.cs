@@ -55,11 +55,6 @@ public class DiceResult : MonoBehaviour
                     ResultNum++;
                     gambleCtrl.InvokeTurnEnd();
                     break;
-                default:
-                    diceWinner.Results[ResultNum] = ReadTheResult();
-                    ResultNum++;
-                    gambleCtrl.InvokeTurnEnd();
-                    break;
             }
         }
     }
