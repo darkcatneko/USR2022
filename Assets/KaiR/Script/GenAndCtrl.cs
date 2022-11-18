@@ -7,6 +7,7 @@ using Cinemachine;
 using System;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GenAndCtrl : MonoBehaviour
 {
@@ -90,6 +91,16 @@ public class GenAndCtrl : MonoBehaviour
         player.Save();
     }
     #endregion
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(4);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 
     int Choose(float[] probs)
     {

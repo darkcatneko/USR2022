@@ -1225,8 +1225,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u7D42\u65BC\uFF0C\u4F60\u518D\u6B21\u6253\u5012\u4E86\u4ED6\u5011\u3002\n\u8D95\u4E0A\u4E86\u9F8D\u821F\u6BD4\u8CFD\u3002\n\u4F60\u4E5F\u5E36\u9818\u4E86\u5927\u5BB6\u6210\u529F\n\u62FF\u4E0B\u4E86\u9019\u5834\u6BD4\u8CFD\u7684\u51A0\u8ECD\u3002\n\u6210\u70BA\u4E86\u4E94\u689D\u6E2F\u6700\u77E5\u540D\u7684\u6D3E\u7CFB\u3002\n\u4F46\u4F60\u77E5\u9053\uFF0C\n\u4F60\u4ECD\u6709\u5F88\u9577\u4E00\u6BB5\u8DEF\u8981\u8D70......"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6994,7 +6994,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1028863431}
         m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
-        m_MethodName: ToMain
+        m_MethodName: BackToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8758,7 +8758,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1028863431}
         m_TargetAssemblyTypeName: GenAndCtrl, Assembly-CSharp
-        m_MethodName: ToMain
+        m_MethodName: BackToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
