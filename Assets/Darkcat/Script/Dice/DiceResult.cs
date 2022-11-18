@@ -29,11 +29,17 @@ public class DiceResult : MonoBehaviour
 
     public void WaitDiceStop()
     {
-        print("a");
         StopDiceCount++;
         if (StopDiceCount == diceFaceUps.Length)
         {
             StopDiceCount = 0;
+            for (int i = 0; i < diceFaceUps.Length; i++)
+            {
+                if (diceFaceUps[i].CanRead == false)
+                {
+                    print(diceFaceUps[i].name+ "CanNotRead");
+                }
+            }
             switch (ReadTheResult().resultEnum)
             {
                 case ResultEnum.NeedToReThrow:

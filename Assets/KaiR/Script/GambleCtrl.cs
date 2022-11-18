@@ -18,6 +18,7 @@ public class GambleCtrl : MonoBehaviour
 
     public void InvokeTurnStart()
     {
+        print(gameObject.name);
         TurnStart.Invoke();
         diceResult.gambleCtrl = this;
     }
@@ -30,6 +31,7 @@ public class GambleCtrl : MonoBehaviour
     {
         foreach(GameObject dice in Dices)
         {
+            dice.GetComponent<Rigidbody>().useGravity = false;
             dice.SetActive(false);
         }
     }
@@ -40,9 +42,9 @@ public class GambleCtrl : MonoBehaviour
             Dices[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
             Dices[i].transform.position = ThrowDicePoints[i].position;
             Dices[i].SetActive(true);
+            Dices[i].GetComponent<Rigidbody>().useGravity = true;
             Dices[i].transform.Rotate(new Vector3(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
             Dices[i].GetComponent<Rigidbody>().AddForce((ThrowPoint.position - Dices[i].transform.position) * strength, ForceMode.Impulse);
-            print(ThrowPoint.position - Dices[i].transform.position);
             Dices[i].GetComponent<DiceFaceUp>().StartWaitSelfStop();
         }
     }

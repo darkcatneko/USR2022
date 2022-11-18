@@ -16,7 +16,7 @@ public class DiceFaceUp : MonoBehaviour
 
     IEnumerator WaitSelfStop()
     {
-        while(m_rigidbody.velocity.magnitude >= 0.0005f)
+        while(!CanRead)
         {
             yield return new WaitForFixedUpdate();
         }
