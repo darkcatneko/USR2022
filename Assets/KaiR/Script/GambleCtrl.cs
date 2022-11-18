@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
+
 public class GambleCtrl : MonoBehaviour
 {
     [SerializeField] GameObject[] Dices = new GameObject[4];
@@ -15,7 +16,8 @@ public class GambleCtrl : MonoBehaviour
     [SerializeField] float strength;
 
     [SerializeField] UnityEvent TurnStart, TurnEnd;
-
+    
+   
     public void InvokeTurnStart()
     {
         print(gameObject.name);
