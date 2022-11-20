@@ -12,9 +12,11 @@ public class EntryUI : MonoBehaviour
     [SerializeField] private UnityEvent gameStart;
     private void Start()
     {
+        gameStartBtn.interactable = false;
         StartCoroutine("InFade");
+        
+       
         Invoke("CanStart", 5);
-
     }
 
     public void GameStart()
@@ -35,7 +37,7 @@ public class EntryUI : MonoBehaviour
     {
             
         float time = 0;
-        float duration = 1;
+        float duration = 1.5f;
         while(time<duration)
         {
             gameStartUI.alpha = Mathf.Lerp(1, 0, time / duration);

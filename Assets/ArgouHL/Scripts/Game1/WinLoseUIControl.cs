@@ -13,8 +13,7 @@ public class WinLoseUIControl : MonoBehaviour
     public void ShowWinUI(int failCount)
     {
         failCountText.text = failCount.ToString();
-        winUI.blocksRaycasts = true;
-        winUI.interactable = true;
+        
         StartCoroutine("WinUIFade");
     }
 
@@ -29,13 +28,14 @@ public class WinLoseUIControl : MonoBehaviour
             yield return null; 
         }
         winUI.alpha = 1;
+        winUI.blocksRaycasts = true;
+        winUI.interactable = true;
     }
 
     public void ShowLoseUI()
     {
        
-        loseUI.blocksRaycasts = true;
-        loseUI.interactable = true;
+        
         StartCoroutine("LoseUIFade");
     }
 
@@ -51,6 +51,8 @@ public class WinLoseUIControl : MonoBehaviour
             yield return null;
         }
         loseUI.alpha = 1;
+        loseUI.blocksRaycasts = true;
+        loseUI.interactable = true;
     }
 
 
