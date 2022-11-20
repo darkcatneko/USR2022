@@ -20,7 +20,7 @@ public class GenAndCtrl : MonoBehaviour
     [SerializeField] CameraAnimationController CameraAnimCtrler;
     [SerializeField] List<DifficultyGroup_ScriptableObj> DifficultyGroups = new List<DifficultyGroup_ScriptableObj>();
     [SerializeField] List<GameObject> StreetList = new List<GameObject>();
-    [SerializeField] int SpawnSum, OraSum;
+    public int SpawnSum, OraSum;
     [SerializeField] Vector3 GapVector;
     [SerializeField] Vector3 StreetGapVector;
 
@@ -36,7 +36,7 @@ public class GenAndCtrl : MonoBehaviour
 
     #region ¶}©l¹CÀ¸
     public SprintGameState Game_State = SprintGameState.Ready;
-    [SerializeField] TextMeshProUGUI EnterText;
+    [SerializeField] TextMeshProUGUI EnterText, TitleTxt;
     [SerializeField] Image BackGround;
     [SerializeField] GameObject EnterCanvas;
 
@@ -49,6 +49,7 @@ public class GenAndCtrl : MonoBehaviour
     public IEnumerator EnterGameFade()
     {
         EnterText.DOFade(0f, 2.5f);
+        TitleTxt.DOFade(0f, 2.5f);
         BackGround.DOFade(0f, 2.5f);
         yield return new WaitForSeconds(2.5f);
         EnterCanvas.SetActive(false);

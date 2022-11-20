@@ -15,7 +15,7 @@ public class DiceResult : MonoBehaviour
     private int ResultNum = 0;
     private byte StopDiceCount = 0;
     #region ¶}©l¹CÀ¸    
-    [SerializeField] TextMeshProUGUI EnterText;
+    [SerializeField] TextMeshProUGUI EnterText, TitleTxt;
     [SerializeField] Image BackGround;
     [SerializeField] GameObject EnterCanvas;
 
@@ -37,6 +37,7 @@ public class DiceResult : MonoBehaviour
     public IEnumerator EnterGameFade()
     {
         EnterText.DOFade(0f, 2.5f);
+        TitleTxt.DOFade(0f, 2.5f);
         BackGround.DOFade(0f, 2.5f);
         yield return new WaitForSeconds(2.5f);
         EnterCanvas.SetActive(false);

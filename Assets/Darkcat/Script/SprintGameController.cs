@@ -6,9 +6,9 @@ using DG.Tweening;
 
 public class SprintGameController : MonoBehaviour
 {
-    public static SprintGameController instance; 
+    public static SprintGameController instance;
 
-    public float PlayerHealth = 150f;
+    public float PlayerHealth = 150f, PlayerMaxHealth = 150f;
 
     public Image PlayerHealthBar; public Image Marker; public GameObject MarkerEnd;
     private Vector3 MarkerStart;
@@ -26,7 +26,7 @@ public class SprintGameController : MonoBehaviour
         if (LevelSystem.Game_State == SprintGameState.Free)
         {
             TimerUpdate();
-            PlayerHealthBar.fillAmount = PlayerHealth / 150f;
+            PlayerHealthBar.fillAmount = PlayerHealth / PlayerMaxHealth;
             PointerMovement(LevelSystem.LvProgress);
         }        
     }
@@ -56,7 +56,7 @@ public class SprintGameController : MonoBehaviour
     public void PointerMovement(float LevelProgress)
     {
         
-        Marker.transform.position = (MarkerEnd.transform.position - MarkerStart) * (LevelProgress / 150f) + MarkerStart;
+        Marker.transform.position = (MarkerEnd.transform.position - MarkerStart) * (LevelProgress / LevelSystem.SpawnSum) + MarkerStart;
     }
     
 }
