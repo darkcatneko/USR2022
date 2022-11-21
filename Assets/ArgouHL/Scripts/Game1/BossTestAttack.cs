@@ -40,9 +40,10 @@ public class BossTestAttack : BossActionClass
         boxerBossParticleControl.StopCharging();
 
         yield return new WaitForSeconds(attackReadyTime -0.5f);
-        parent.TapHint(1,"Tap to Guard");
+        
         float time=0;
         yield return new WaitForSeconds(0.25f);
+        parent.TapHint(1, "Tap to Guard");
         switch (parent.attackFactor)
         {
             case 0:
