@@ -13,6 +13,7 @@ public class BoxerBossParticleControl : MonoBehaviour
     [SerializeField] private ParticleSystem[] hitEffects;
     [SerializeField] private ParticleSystem[] guardEffects;
     [SerializeField] private ParticleSystem[] getHitEffects;
+    [SerializeField] private ParticleSystem[] stunEffects;
     private int getHitEffectCount=0;
 
     public void Charging()
@@ -139,5 +140,23 @@ public class BoxerBossParticleControl : MonoBehaviour
         getHitEffects[getHitEffectCount].Play();
 
 
+    }
+
+    public void Stun()
+    {
+        foreach(var effect in stunEffects)
+        {
+            effect.gameObject.SetActive(true);
+            effect.Play();
+        }
+    }
+
+    public void StopStun()
+    {
+        foreach (var effect in stunEffects)
+        {
+            effect.gameObject.SetActive(false);
+            effect.Stop();
+        }
     }
 }

@@ -177,6 +177,7 @@ public class BossActController : MonoBehaviour
             gettedDamage = 0;
             bossStage = nextBossStage;
             nextBossStage = 0;
+            boxerBossParticleControl.StopStun();
             bossAction = gameObject.AddComponent<BossTestBackward>();
         }
         else if (nextBossStage == 3)//暈
@@ -197,7 +198,7 @@ public class BossActController : MonoBehaviour
     //被反擊暈眩後
     public void Stunned()
     {
-
+        boxerBossParticleControl.Stun();
         isStunned = true;
         TapHint(1, "Tap to Attack");
         nextBossStage = 3;
@@ -222,6 +223,7 @@ public class BossActController : MonoBehaviour
         if (BoxerGameControl.gameEnd)
             return;
 
+        boxerBossParticleControl.StopStun();
         attackTimeUIDisapper.Invoke();
         TapHint(0, "");
         isStunned = false;

@@ -36,4 +36,14 @@ public class CameraShake : MonoBehaviour
         
         return new Vector3 (x,y,0);
     }
+
+    public void SmallShake()
+    {
+        cameraOrgPos = Camera.main.transform.localPosition;
+        StartCoroutine(Shaking(0.08f, 0.1f));
+
+
+    }
+
+
 }
