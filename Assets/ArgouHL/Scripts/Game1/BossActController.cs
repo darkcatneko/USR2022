@@ -63,7 +63,10 @@ public class BossActController : MonoBehaviour
 
     private int hitPlayerCount = 0;
     public float attackFactor = 1;
-    
+
+    [SerializeField] private Material bossNormal;
+    [SerializeField] private Material bossStun;
+    [SerializeField] private SkinnedMeshRenderer bossMeshRender;
 
     private void Start()
     {
@@ -178,6 +181,7 @@ public class BossActController : MonoBehaviour
             bossStage = nextBossStage;
             nextBossStage = 0;
             boxerBossParticleControl.StopStun();
+            bossMeshRender.material = bossNormal;
             bossAction = gameObject.AddComponent<BossTestBackward>();
         }
         else if (nextBossStage == 3)//暈
@@ -198,6 +202,7 @@ public class BossActController : MonoBehaviour
     //被反擊暈眩後
     public void Stunned()
     {
+        bossMeshRender.material = bossStun;
         boxerBossParticleControl.Stun();
         isStunned = true;
         TapHint(1, "Tap to Attack");
@@ -223,7 +228,7 @@ public class BossActController : MonoBehaviour
         if (BoxerGameControl.gameEnd)
             return;
 
-        boxerBossParticleControl.StopStun();
+       
         attackTimeUIDisapper.Invoke();
         TapHint(0, "");
         isStunned = false;
