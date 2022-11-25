@@ -16,6 +16,7 @@ public class DiceFaceUp : MonoBehaviour
 
     IEnumerator WaitSelfStop()
     {
+        yield return new WaitForSeconds(1);
         while(!CanRead)
         {
             yield return new WaitForFixedUpdate();
